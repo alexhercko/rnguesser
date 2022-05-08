@@ -1,39 +1,44 @@
-﻿using System;
+﻿using RNGuesser.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RNGuesser.Enums;
 
-namespace RNGuesser
+namespace RNGuesser.Models
 {
-    public class RNGame
+    public class RNGameModel
     {
         public int Low { get; }
-        public int CurrentLow { get; set; }
         public int High { get; }
+
+        public int CurrentLow { get; set; }
         public int CurrentHigh { get; set; }
+
         public int MaxAttempts { get; }
         public int CurrentAttempts { get; set; }
+
         public int GeneratedNumber { get; set; }
 
-        private Random random;
-        private const int StartingAttempt = 1;
+        private readonly Random random;
+        private const int startingAttempt = 1;
 
-        public RNGame(int low, int high, int maxAttempts)
+        public RNGameModel(int low, int high, int maxAttempts)
         {
             Low = low;
-            CurrentLow = low;
             High = high;
+
+            CurrentLow = low;
             CurrentHigh = high;
+
             MaxAttempts = maxAttempts;
-            CurrentAttempts = StartingAttempt;
+            CurrentAttempts = startingAttempt;
 
             random = new Random();
             GeneratedNumber = random.Next(Low, High);
         }
 
-        public GuessResult Play(int guess)
+        public GuessResult GetNextResult(int guess)
         {
             if (GeneratedNumber == guess)
             {
@@ -60,7 +65,7 @@ namespace RNGuesser
 
         public void ResetGame()
         {
-            CurrentAttempts = StartingAttempt;
+            CurrentAttempts = startingAttempt;
             GeneratedNumber = random.Next(Low, High);
         }
     }

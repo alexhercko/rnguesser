@@ -1,4 +1,4 @@
-﻿namespace RNGuesser.Enums;
+﻿namespace RNGuesser.Models.Enums;
 
 public enum GuessResult
 {
