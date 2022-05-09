@@ -1,4 +1,5 @@
-﻿using RNGuesser.Models.Enums;
+﻿using RNGuesser.Core;
+using RNGuesser.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,21 +8,51 @@ using System.Threading.Tasks;
 
 namespace RNGuesser.Models
 {
-    public class RNGameModel
+    public class RNGameModel : ObservableObject
     {
         public int Low { get; }
         public int High { get; }
 
-        public int CurrentLow { get; set; }
-        public int CurrentHigh { get; set; }
+        private int _currentLow;
+        public int CurrentLow {
+            get { return _currentLow; }
+            set
+            {
+                _currentLow = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _currentHigh;
+        public int CurrentHigh
+        {
+            get { return _currentHigh; }
+            set
+            {
+                _currentHigh = value;
+                OnPropertyChanged();
+            }
+        }
 
         public int MaxAttempts { get; }
-        public int CurrentAttempts { get; set; }
+
+        private const int startingAttempt = 1;
+
+        private int _currentAttempts = startingAttempt;
+
+        public int CurrentAttempts
+        {
+            get { return _currentAttempts; }
+            set
+            {
+                _currentAttempts = value;
+                OnPropertyChanged();
+            }
+        }
 
         public int GeneratedNumber { get; set; }
 
         private readonly Random random;
-        private const int startingAttempt = 1;
 
         public RNGameModel(int low, int high, int maxAttempts)
         {
@@ -40,6 +71,11 @@ namespace RNGuesser.Models
 
         public GuessResult GetNextResult(int guess)
         {
+            if (guess < CurrentLow || guess > CurrentHigh)
+            {
+                return GuessResult.MissedRange;
+            }
+
             if (GeneratedNumber == guess)
             {
                 return GuessResult.Equal;
@@ -65,8 +101,10 @@ namespace RNGuesser.Models
 
         public void ResetGame()
         {
-            CurrentAttempts = startingAttempt;
             GeneratedNumber = random.Next(Low, High);
+            CurrentAttempts = startingAttempt;
+            CurrentLow = Low;
+            CurrentHigh = High;
         }
     }
 }

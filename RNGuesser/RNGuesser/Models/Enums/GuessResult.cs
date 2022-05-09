@@ -5,5 +5,6 @@ public enum GuessResult
     Equal,
     Less,
     Greater,
-    Loss
+    Loss,
+    MissedRange
 }
