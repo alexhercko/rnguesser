@@ -1,5 +1,4 @@
-﻿using RNGuesser.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,14 +16,13 @@ using System.Windows.Shapes;
 namespace RNGuesser.Views.Controls
 {
     /// <summary>
-    /// Interaction logic for RNGameControlView.xaml
+    /// Interaction logic for RNGuessControlView.xaml
     /// </summary>
-    public partial class RNGameControlView : UserControl
+    public partial class RNGuessControlView : UserControl
     {
-        public RNGameControlView()
+        public RNGuessControlView()
         {
             InitializeComponent();
-            DataContext = new RNGameControlViewModel();
         }
     }
 }

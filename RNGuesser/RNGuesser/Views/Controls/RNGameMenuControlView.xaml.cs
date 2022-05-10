@@ -17,14 +17,13 @@ using System.Windows.Shapes;
 namespace RNGuesser.Views.Controls
 {
     /// <summary>
-    /// Interaction logic for RNGameControlView.xaml
+    /// Interaction logic for RNGameMenuControlView.xaml
     /// </summary>
-    public partial class RNGameControlView : UserControl
+    public partial class RNGameMenuControlView : UserControl
     {
-        public RNGameControlView()
+        public RNGameMenuControlView()
         {
             InitializeComponent();
-            DataContext = new RNGameControlViewModel();
         }
     }
 }

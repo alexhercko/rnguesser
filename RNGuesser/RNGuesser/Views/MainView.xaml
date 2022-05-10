@@ -5,13 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RNGuesser.Views"
         xmlns:viewmodels="clr-namespace:RNGuesser.ViewModels"
+        xmlns:controls="clr-namespace:RNGuesser.Views.Controls"
+        xmlns:enums="clr-namespace:RNGuesser.ViewModels.Enums"
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
         Title="MainView" Height="550" Width="900"
         Background="#181925">
-    <Window.DataContext>
-        <viewmodels:MainViewModel />
-    </Window.DataContext>
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -41,17 +40,24 @@
                     FontSize="20"
                     Padding="50, 10, 50, 10"
                     Background="#212228"
-                    Foreground="White"/>
+                    Foreground="White"
+                    Command="{Binding ChangeViewCommand}"
+                    CommandParameter="{x:Static enums:MainControls.RNGame}"/>
             <Button Content="RNGuess"
                     FontSize="20"
                     Padding="50, 10, 50, 10"
                     Background="#212228"
-                    Foreground="White"/>
+                    Foreground="White"
+                    Command="{Binding ChangeViewCommand}"
+                    CommandParameter="{x:Static enums:MainControls.RNGuesser}"/>
         </StackPanel>
-                    
 
-        <ContentControl Grid.Column="1"
-                        Grid.Row="2"
-                        Content="{Binding CurrentContent}" />
+        <Border Grid.Column="1"
+                Grid.Row="2"
+                Background="#252430">
+
+            <ContentControl Content="{Binding CurrentControl}" />
+        </Border>
+
     </Grid>
 </Window>

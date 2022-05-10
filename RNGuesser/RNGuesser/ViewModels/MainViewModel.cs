@@ -1,4 +1,5 @@
 ﻿using RNGuesser.Core;
+using RNGuesser.ViewModels.Enums;
 using RNGuesser.Views.Controls;
 using System;
 using System.Collections.Generic;
@@ -9,23 +10,40 @@ using System.Windows.Controls;
 
 namespace RNGuesser.ViewModels
 {
-    public class MainViewModel : ObservableObject
+    public class MainViewModel : ObservableObject, IViewModel
     {
-        private UserControl _currentContent;
+        private UserControl _currentControl;
 
-        public UserControl CurrentContent
+        public UserControl CurrentControl
         {
-            get { return _currentContent; }
-            set {
-                _currentContent = value;
+            get { return _currentControl; }
+            set
+            {
+                _currentControl = value;
                 OnPropertyChanged();
             }
         }
 
+        public RelayCommand ChangeViewCommand { get; set; }
+
         public MainViewModel()
         {
-            CurrentContent = new RNGameControlView();
+            CurrentControl = new RNGameControlView();
+            ChangeViewCommand = new RelayCommand(ChangeView);   
         }
 
+        private void ChangeView(object param)
+        {
+            MainControls control = (MainControls)param;
+
+            switch (control)
+            {
+                case MainControls.RNGame:
+                    CurrentControl = new RNGameControlView();
+                    break;
+                case MainControls.RNGuesser:
+                    break;
+            }
+        }
     }
 }
