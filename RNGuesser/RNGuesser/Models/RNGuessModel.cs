@@ -64,6 +64,8 @@ namespace RNGuesser.Models
             }
         }
 
+        public GuessResult FinalGuessResult { get; set; }
+
         public RNGuessModel(int low, int high, int maxAttempts)
         {
             Low = low;
@@ -88,10 +90,12 @@ namespace RNGuesser.Models
             switch (guessResult)
             {
                 case GuessResult.Loss:
+                    FinalGuessResult = guessResult;
                     return;
                 case GuessResult.Equal:
                     CurrentLow = GuessedNumber;
                     CurrentHigh = GuessedNumber;
+                    FinalGuessResult = guessResult;
                     return;
                 case GuessResult.Less:
                     CurrentHigh = GuessedNumber - 1;

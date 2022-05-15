@@ -28,7 +28,7 @@
         <!-- Attempts display -->
         <StackPanel Grid.Column="1"
                     Grid.Row="1"
-                    Margin="0, 20, 0, 20">
+                    Margin="0, 20, 0, 40">
             <TextBlock Text="Attempt:"
                        Foreground="White"
                        HorizontalAlignment="Center"
@@ -73,12 +73,19 @@
         </StackPanel>
 
         <!-- Current guess -->
-        <TextBlock Grid.Column="1"
-                   Grid.Row="2"
-                   FontSize="45"
-                   HorizontalAlignment="Center"
-                   Foreground="white"
-                   Text="{Binding RNGuess.GuessedNumber}"/>
+        <StackPanel Grid.Column="1"
+                    Grid.Row="2"
+                    Margin="0,5,0,20">
+            <TextBlock Text="try:"
+                       FontSize="14"
+                       HorizontalAlignment="Center"
+                       Foreground="LightBlue"/>
+
+            <TextBlock FontSize="45"
+                       HorizontalAlignment="Center"
+                       Foreground="white"
+                       Text="{Binding RNGuess.GuessedNumber}"/>
+        </StackPanel>
 
         <!-- Display High -->
         <StackPanel Grid.Column="2"
@@ -167,12 +174,5 @@
                     CommandParameter="{x:Static enums:GuessResult.Greater}"/>
         </Grid>
 
-        <Button Grid.Column="1"
-                Grid.Row="4"
-                Margin="30, 10, 30, 30"
-                Padding="2, 5, 2, 5"
-                Content="Play again"
-                FontSize="20"
-                Command="{Binding PlayAgainCommand}"/>
     </Grid>
 </UserControl>

@@ -15,39 +15,38 @@ namespace RNGuesser.ViewModels.RNGuess
 
         public RelayCommand SetGuessResultCommand { get; set; }
 
-        public RelayCommand PlayAgainCommand { get; set; }
+        private readonly RNGuessContainerControlViewModel rnguessContainerControlViewModel;
 
-        private bool canPlayAgain = false;
-
-        public RNGuessControlViewModel(int low, int high, int attempts)
+        public RNGuessControlViewModel(RNGuessModel rngGuess, RNGuessContainerControlViewModel rnguessContainerControlViewModel)
         {
-            RNGuess = new RNGuessModel(low, high, attempts);
-            SetGuessResultCommand = new RelayCommand(SetGuessResult, o => !canPlayAgain);
-            PlayAgainCommand = new RelayCommand(PlayAgain, o => canPlayAgain);
+            RNGuess = rngGuess;
+            SetGuessResultCommand = new RelayCommand(SetGuessResult);
+
+            this.rnguessContainerControlViewModel = rnguessContainerControlViewModel;
         }
 
         private void SetGuessResult(object param)
         {
             GuessResult guessResult = (GuessResult)param;
 
-            if (RNGuess.CurrentAttempts == RNGuess.MaxAttempts)
-            {
-                canPlayAgain = true;
-                guessResult = GuessResult.Loss;
-            }
-
+            bool canShowResults = false;
             if (guessResult == GuessResult.Equal)
             {
-                canPlayAgain = true;
+                canShowResults = true;
             }
 
             RNGuess.SetGuess(guessResult);
+
+            if (RNGuess.CurrentAttempts == RNGuess.MaxAttempts)
+            {
+                RNGuessLastAttemptControlViewModel nrguessLastAttemptVm = new RNGuessLastAttemptControlViewModel(RNGuess, rnguessContainerControlViewModel);
+                rnguessContainerControlViewModel.CurrentViewModel = nrguessLastAttemptVm;
+            } else if (canShowResults)
+            {
+                RNGuessResultControlViewModel rnguessResultVm = new RNGuessResultControlViewModel(RNGuess, rnguessContainerControlViewModel);
+                rnguessContainerControlViewModel.CurrentViewModel = rnguessResultVm;
+            }
         }
 
-        private void PlayAgain(object param)
-        {
-            RNGuess.ResetGame();
-            canPlayAgain = false;
-        }
     }
 }

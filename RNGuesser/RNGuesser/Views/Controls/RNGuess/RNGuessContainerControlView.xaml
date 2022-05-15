@@ -15,6 +15,12 @@
         <DataTemplate DataType="{x:Type viewmodels:RNGuessControlViewModel}">
             <local:RNGuessControlView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:RNGuessResultControlViewModel}">
+            <local:RNGuessResultControlView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:RNGuessLastAttemptControlViewModel}">
+            <local:RNGuessLastAttemptControlView />
+        </DataTemplate>
     </UserControl.Resources>
 
     <UserControl Content="{Binding CurrentViewModel}" />

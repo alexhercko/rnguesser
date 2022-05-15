@@ -1,4 +1,5 @@
 ﻿using RNGuesser.Core;
+using RNGuesser.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,18 +15,18 @@ namespace RNGuesser.ViewModels.RNGuess
         public int Attempts { get; set; }
 
         public RelayCommand StartPlayingCommand { get; set; }
-        private readonly RNGuessContainerControlViewModel rnguessControlViewModel;
+        private readonly RNGuessContainerControlViewModel rnguessContainerControlViewModel;
 
-        public RNGuessMenuControlViewModel(RNGuessContainerControlViewModel rnguessControlViewModel)
+        public RNGuessMenuControlViewModel(RNGuessContainerControlViewModel rnguessContainerControlViewModel)
         {
             StartPlayingCommand = new RelayCommand(StartPlaying);
-            this.rnguessControlViewModel = rnguessControlViewModel;
+            this.rnguessContainerControlViewModel = rnguessContainerControlViewModel;
         }
 
         private void StartPlaying(object param)
         {
-            RNGuessControlViewModel rnguessPlayVm = new RNGuessControlViewModel(Low, High, Attempts);
-            rnguessControlViewModel.CurrentViewModel = rnguessPlayVm;
+            RNGuessControlViewModel rnguessVm = new RNGuessControlViewModel(new RNGuessModel(Low, High, Attempts), rnguessContainerControlViewModel);
+            rnguessContainerControlViewModel.CurrentViewModel = rnguessVm;
         }
     }
 }

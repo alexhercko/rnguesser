@@ -68,7 +68,7 @@ namespace RNGuesser.Models
             CurrentAttempts = startingAttempt;
 
             random = new Random();
-            GeneratedNumber = random.Next(Low, High);
+            GeneratedNumber = random.Next(Low, High + 1);
         }
 
         public GuessResult GetNextResult(int guess)
