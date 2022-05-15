@@ -91,12 +91,12 @@ namespace RNGuesser.Models
 
             if (GeneratedNumber < guess)
             {
-                CurrentHigh = guess;
+                CurrentHigh = guess - 1;
                 return GuessResult.Less;
             }
             else
             {
-                CurrentLow = guess;
+                CurrentLow = guess + 1;
                 return GuessResult.Greater;
             }
         }
