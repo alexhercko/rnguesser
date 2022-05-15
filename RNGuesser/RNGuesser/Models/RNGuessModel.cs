@@ -87,10 +87,12 @@ namespace RNGuesser.Models
         {
             switch (guessResult)
             {
+                case GuessResult.Loss:
+                    return;
                 case GuessResult.Equal:
                     CurrentLow = GuessedNumber;
                     CurrentHigh = GuessedNumber;
-                    break;
+                    return;
                 case GuessResult.Less:
                     CurrentHigh = GuessedNumber - 1;
                     break;

@@ -33,7 +33,7 @@ namespace RNGuesser.ViewModels.RNGuess
             if (RNGuess.CurrentAttempts == RNGuess.MaxAttempts)
             {
                 canPlayAgain = true;
-                return;
+                guessResult = GuessResult.Loss;
             }
 
             if (guessResult == GuessResult.Equal)

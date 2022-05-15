@@ -17,13 +17,14 @@ using System.Windows.Shapes;
 namespace RNGuesser.Views.Controls.RNGuess
 {
     /// <summary>
-    /// Interaction logic for RNGuessControlView.xaml
+    /// Interaction logic for RNGuessContainerControlView.xaml
     /// </summary>
-    public partial class RNGuessControlView : UserControl
+    public partial class RNGuessContainerControlView : UserControl
     {
-        public RNGuessControlView()
+        public RNGuessContainerControlView()
         {
             InitializeComponent();
+            DataContext = new RNGuessContainerControlViewModel();
         }
     }
 }
