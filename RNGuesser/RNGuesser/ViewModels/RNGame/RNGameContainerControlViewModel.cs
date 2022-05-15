@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RNGuesser.ViewModels
+namespace RNGuesser.ViewModels.RNGame
 {
-    public class RNGameControlViewModel : ObservableObject
+    public class RNGameContainerControlViewModel : ObservableObject
     {
         private IViewModel _currentViewModel;
 
@@ -21,7 +21,7 @@ namespace RNGuesser.ViewModels
             }
         }
 
-        public RNGameControlViewModel()
+        public RNGameContainerControlViewModel()
         {
             CurrentViewModel = new RNGameMenuControlViewModel(this);
         }

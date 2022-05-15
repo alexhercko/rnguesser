@@ -49,7 +49,7 @@
                     Background="#212228"
                     Foreground="White"
                     Command="{Binding ChangeViewCommand}"
-                    CommandParameter="{x:Static enums:MainControls.RNGuesser}"/>
+                    CommandParameter="{x:Static enums:MainControls.RNGuess}"/>
         </StackPanel>
 
         <Border Grid.Column="1"

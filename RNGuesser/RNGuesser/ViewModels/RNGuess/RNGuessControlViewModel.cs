@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RNGuesser.ViewModels
+namespace RNGuesser.ViewModels.RNGuess
 {
     public class RNGuessControlViewModel : ObservableObject, IViewModel
     {

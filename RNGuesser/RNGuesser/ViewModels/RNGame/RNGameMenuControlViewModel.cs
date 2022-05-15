@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RNGuesser.ViewModels
+namespace RNGuesser.ViewModels.RNGame
 {
     public class RNGameMenuControlViewModel : ObservableObject, IViewModel
     {
@@ -15,9 +15,9 @@ namespace RNGuesser.ViewModels
         public int Attempts { get; set; }
 
         public RelayCommand StartPlayingCommand { get; set; }
-        private readonly RNGameControlViewModel rngameControlViewModel;
+        private readonly RNGameContainerControlViewModel rngameControlViewModel;
 
-        public RNGameMenuControlViewModel(RNGameControlViewModel rngameControlViewModel)
+        public RNGameMenuControlViewModel(RNGameContainerControlViewModel rngameControlViewModel)
         {
             StartPlayingCommand = new RelayCommand(StartPlaying);
             this.rngameControlViewModel = rngameControlViewModel;

@@ -1,6 +1,7 @@
 ﻿using RNGuesser.Core;
 using RNGuesser.ViewModels.Enums;
-using RNGuesser.Views.Controls;
+using RNGuesser.Views.Controls.RNGame;
+using RNGuesser.Views.Controls.RNGuess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace RNGuesser.ViewModels
 
         public MainViewModel()
         {
-            CurrentControl = new RNGameControlView();
+            CurrentControl = new RNGameContainerControlView();
             ChangeViewCommand = new RelayCommand(ChangeView);   
         }
 
@@ -39,9 +40,9 @@ namespace RNGuesser.ViewModels
             switch (control)
             {
                 case MainControls.RNGame:
-                    CurrentControl = new RNGameControlView();
+                    CurrentControl = new RNGameContainerControlView();
                     break;
-                case MainControls.RNGuesser:
+                case MainControls.RNGuess:
                     CurrentControl = new RNGuessControlView();
                     break;
             }
