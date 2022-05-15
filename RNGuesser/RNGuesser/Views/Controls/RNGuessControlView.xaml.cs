@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RNGuesser.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace RNGuesser.Views.Controls
         public RNGuessControlView()
         {
             InitializeComponent();
+            DataContext = new RNGuessControlViewModel(1, 100, 5);
         }
     }
 }

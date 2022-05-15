@@ -4,9 +4,175 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RNGuesser.Views.Controls"
+             xmlns:enums="clr-namespace:RNGuesser.Models.Enums"
+             xmlns:viewmodels="clr-namespace:RNGuesser.ViewModels"
+             d:DataContext="{d:DesignInstance Type=viewmodels:RNGuessControlViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Attempts display -->
+        <StackPanel Grid.Column="1"
+                    Grid.Row="1"
+                    Margin="0, 20, 0, 20">
+            <TextBlock Text="Attempt:"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       FontSize="25"
+                       Margin="0,1,0,5"/>
+            <TextBlock Foreground="White"
+                       HorizontalAlignment="Center"
+                       FontSize="20">
+                <TextBlock.Text >
+                    <MultiBinding StringFormat="{}{0} / {1}" >
+                        <Binding Path="RNGuess.CurrentAttempts" />
+                        <Binding Path="RNGuess.MaxAttempts" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </StackPanel>
+
+        <!-- Display Low -->
+        <StackPanel Grid.Column="0"
+                    Grid.Row="2"
+                    Orientation="Horizontal"
+                    Margin="0, 0, 20, 0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center" >
+            <TextBlock Foreground="white"
+                       FontSize="25"
+                       Text="{Binding RNGuess.Low}"
+                       VerticalAlignment="Center"/>
+            <TextBlock Foreground="white"
+                       FontSize="25"
+                       Text=" ··· "
+                       VerticalAlignment="Center"/>
+            <TextBlock Foreground="white"
+                       FontSize="15"
+                       Text="{Binding RNGuess.CurrentLow}"
+                       VerticalAlignment="Center"/>
+            <TextBlock Foreground="white"
+                       FontSize="15"
+                       Margin="10,0,0,0"
+                       Text="→"
+                       VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Current guess -->
+        <TextBlock Grid.Column="1"
+                   Grid.Row="2"
+                   FontSize="45"
+                   HorizontalAlignment="Center"
+                   Foreground="white"
+                   Text="{Binding RNGuess.GuessedNumber}"/>
+
+        <!-- Display High -->
+        <StackPanel Grid.Column="2"
+                    Grid.Row="2"
+                    Orientation="Horizontal"
+                    Margin="20, 0, 0, 0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center">
+            <TextBlock Foreground="white"
+                       FontSize="15"
+                       Margin="0,0,10,0"
+                       Text="←"
+                       VerticalAlignment="Center"/>
+            <TextBlock Foreground="white"
+                       FontSize="15"
+                       Text="{Binding RNGuess.CurrentHigh}"
+                       VerticalAlignment="Center"/>
+            <TextBlock Foreground="white"
+                       FontSize="25"
+                       Margin="5, 0, 5, 0"
+                       Text="···"
+                       VerticalAlignment="Center"/>
+            <TextBlock Foreground="white"
+                       FontSize="25"
+                       Text="{Binding RNGuess.High}"
+                       VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Input buttons -->
+        <Grid Grid.Column="1"
+              Grid.Row="3"
+              Margin="0,20,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       Grid.Row="0"
+                       Text="Less"
+                       FontSize="20"
+                       HorizontalAlignment="Center"
+                       Foreground="white" />
+
+            <TextBlock Grid.Column="1"
+                       Grid.Row="0"
+                       Text="Equal"
+                       FontSize="20"
+                       HorizontalAlignment="Center"
+                       Foreground="white" />
+
+            <TextBlock Grid.Column="2"
+                       Grid.Row="0"
+                       Text="Greater"
+                       FontSize="20"
+                       HorizontalAlignment="Center"
+                       Foreground="white" />
+
+            <Button Grid.Column="0"
+                    Grid.Row="1"
+                    Margin="10,15,10,15"
+                    FontSize="20"
+                    Content="&lt;"
+                    Command="{Binding SetGuessResultCommand}"
+                    CommandParameter="{x:Static enums:GuessResult.Less}"/>
+
+            <Button Grid.Column="1"
+                    Grid.Row="1"
+                    Margin="10,15,10,15"
+                    FontSize="20"
+                    Content="="
+                    Command="{Binding SetGuessResultCommand}"
+                    CommandParameter="{x:Static enums:GuessResult.Equal}"/>
+
+            <Button Grid.Column="2"
+                    Grid.Row="1"
+                    Margin="10,15,10,15"
+                    FontSize="20"
+                    Content="&gt;"
+                    Command="{Binding SetGuessResultCommand}"
+                    CommandParameter="{x:Static enums:GuessResult.Greater}"/>
+        </Grid>
+
+        <Button Grid.Column="1"
+                Grid.Row="4"
+                Margin="30, 10, 30, 30"
+                Padding="2, 5, 2, 5"
+                Content="Play again"
+                FontSize="20"
+                Command="{Binding PlayAgainCommand}"/>
     </Grid>
 </UserControl>

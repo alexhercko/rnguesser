@@ -42,6 +42,7 @@ namespace RNGuesser.ViewModels
                     CurrentControl = new RNGameControlView();
                     break;
                 case MainControls.RNGuesser:
+                    CurrentControl = new RNGuessControlView();
                     break;
             }
         }
