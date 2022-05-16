@@ -51,6 +51,8 @@ namespace RNGuesser.ViewModels.RNGuess
                                                                         GuessInput >= RNGuess.CurrentLow && GuessInput <= RNGuess.CurrentHigh);
         }
 
+        // TODO: fix: it is possible to say higher or lower even when only one possible result
+        // generally saying the result is higher than currentHigh or lower than currentLow causes bugs
         private void SetGuessResult(object param)
         {
             GuessResult guessResult = (GuessResult)param;
@@ -66,7 +68,7 @@ namespace RNGuesser.ViewModels.RNGuess
                 rnguessContainerControlViewModel.CurrentViewModel = rnguessResultVm;
             }
 
-            if (RNGuess.CurrentAttempts == RNGuess.MaxAttempts)
+            if (RNGuess.CurrentAttempts == RNGuess.MaxAttempts && RNGuess.CurrentLow != RNGuess.CurrentHigh)
             {
                 LastAttemptVisibility = Visibility.Visible;
             }

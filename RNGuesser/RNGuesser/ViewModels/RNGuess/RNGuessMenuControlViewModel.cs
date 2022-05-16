@@ -23,6 +23,7 @@ namespace RNGuesser.ViewModels.RNGuess
             this.rnguessContainerControlViewModel = rnguessContainerControlViewModel;
         }
 
+        // TODO: validate input (low < high) etc.
         private void StartPlaying(object param)
         {
             RNGuessControlViewModel rnguessVm = new RNGuessControlViewModel(new RNGuessModel(Low, High, Attempts), rnguessContainerControlViewModel);
