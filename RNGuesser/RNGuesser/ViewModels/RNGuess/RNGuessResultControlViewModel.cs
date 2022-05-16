@@ -11,7 +11,7 @@ namespace RNGuesser.ViewModels.RNGuess
 {
     public class RNGuessResultControlViewModel : ObservableObject, IViewModel
     {
-        public RNGuessModel RNGuess { get; set; }
+        public RNGuessResultModel RNGuessResult { get; set; }
 
         public RelayCommand PlayAgainCommand { get; set; }
 
@@ -39,42 +39,15 @@ namespace RNGuesser.ViewModels.RNGuess
             }
         }
 
-        // TODO: should be moved to RNGuessResultModel
-        private bool _usedRandomGuess;
-
-        public bool UsedRandomGuess
-        {
-            get { return _usedRandomGuess; }
-            set
-            {
-                _usedRandomGuess = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private bool _usedCustomGuess;
-
-        public bool UsedCustomGuess
-        {
-            get { return _usedCustomGuess; }
-            set
-            {
-                _usedCustomGuess = value;
-                OnPropertyChanged();
-            }
-        }
-
         private readonly RNGuessContainerControlViewModel rnguessContainerControlViewModel;
+        private readonly RNGuessModel rnguess;
 
-        // TODO: ctor should take RNGuessResultModel in the future
-        public RNGuessResultControlViewModel(RNGuessModel rnguess, RNGuessContainerControlViewModel rnguessContainerControlViewModel, bool usedCustomGuess, bool usedRandomGuess)
+        public RNGuessResultControlViewModel(RNGuessResultModel rnguessResult, RNGuessContainerControlViewModel rnguessContainerControlViewModel, RNGuessModel rnguess)
         {
-            RNGuess = rnguess;
+            RNGuessResult = rnguessResult;
             this.rnguessContainerControlViewModel = rnguessContainerControlViewModel;
+            this.rnguess = rnguess;
             PlayAgainCommand = new RelayCommand(PlayAgain);
-
-            UsedRandomGuess = usedRandomGuess;
-            UsedCustomGuess = usedCustomGuess;
 
             SetResultDescription();
             SetResult();
@@ -82,7 +55,7 @@ namespace RNGuesser.ViewModels.RNGuess
 
         private void SetResultDescription()
         {
-            switch (RNGuess.FinalGuessResult)
+            switch (RNGuessResult.FinalResult)
             {
                 case GuessResult.Loss:
                     ResultDescription = "The number was not guessed.";
@@ -95,19 +68,20 @@ namespace RNGuesser.ViewModels.RNGuess
 
         private void SetResult()
         {
-            if (RNGuess.CurrentLow == RNGuess.CurrentHigh)
+            if (RNGuessResult.FinalLow == RNGuessResult.FinalHigh)
             {
-                Result = $"{RNGuess.CurrentLow}";
+                Result = $"{RNGuessResult.FinalLow}";
             } else
             {
-                Result = $"between <{RNGuess.CurrentLow} and {RNGuess.CurrentHigh}>";
+                Result = $"between <{RNGuessResult.FinalLow} and {RNGuessResult.FinalHigh}>";
             }
         }
 
         private void PlayAgain(object param)
         {
-            RNGuess.ResetGame();
-            RNGuessControlViewModel rnguessPlayVm = new RNGuessControlViewModel(RNGuess, rnguessContainerControlViewModel);
+            rnguess.ResetGame();
+            //RNGuessModel rnguess = new RNGuessModel(RNGuessResult.Low, RNGuessResult.High, RNGuessResult.MaxAttempts);
+            RNGuessControlViewModel rnguessPlayVm = new RNGuessControlViewModel(rnguess, rnguessContainerControlViewModel);
             rnguessContainerControlViewModel.CurrentViewModel = rnguessPlayVm;
         }
     }
