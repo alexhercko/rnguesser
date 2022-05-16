@@ -19,31 +19,36 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="0"
                    Grid.Row="0"
                    Grid.ColumnSpan="3"
-                   Text="{Binding ResultString}"
+                   Text="{Binding ResultDescription}"
                    FontSize="25"
+                   Margin="20"
                    Foreground="white" />
 
         <TextBlock Grid.Column="0"
                    Grid.Row="1"
                    Text="The result is:"
                    Foreground="white"
+                   Margin="20,10,20,10"
                    FontSize="20"/>
 
-        <TextBlock Grid.Column="0"
+        <TextBlock Grid.Column="1"
                    Grid.Row="1"
-                   Text="The result is:"
+                   Text="{Binding Result}"
                    Foreground="white"
+                   Margin="20,10,20,10"
                    FontSize="20"/>
 
-        <Button Grid.Column="1"
-                Grid.Row="4"
-                Margin="30, 10, 30, 30"
+        <Button Grid.Column="0"
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                Margin="30, 30, 30, 10"
                 Padding="2, 5, 2, 5"
                 Content="Play again"
                 FontSize="20"

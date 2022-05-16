@@ -13,7 +13,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -39,7 +38,7 @@
 
         <StackPanel Grid.Column="0"
                     Grid.Row="1"
-                    Margin="30,40,30,20">
+                    Margin="0,20,0,0">
             <TextBlock Text="Numbers to choose from:"
                    Foreground="white"
                    FontSize="20"
@@ -61,7 +60,7 @@
         <Button Grid.Column="0"
                 Grid.Row="2"
                 FontSize="20"
-                Margin="0,25,0,25"
+                Margin="20,25,20,25"
                 Padding="10,0,10,0"
                 HorizontalAlignment="Center"
                 Content="Pick a number randomly" 
@@ -105,41 +104,65 @@
                        Text="{Binding RNGuess.GuessedNumber}"/>
         </StackPanel>
 
-        <Grid Grid.Column="2"
+        <Grid Grid.Column="1"
               Grid.Row="2"
-              Margin="40,15,40,0">
+              Margin="100,15,100,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Column="0"
                        Grid.Row="0"
-                       Grid.ColumnSpan="2"
-                       Text="Was the guess correct?"
-                       Foreground="white"
-                       FontSize="20"/>
+                       Text="Less"
+                       FontSize="20"
+                       HorizontalAlignment="Center"
+                       Foreground="white" />
+
+            <TextBlock Grid.Column="1"
+                       Grid.Row="0"
+                       Text="Equal"
+                       FontSize="20"
+                       HorizontalAlignment="Center"
+                       Foreground="white" />
+
+            <TextBlock Grid.Column="2"
+                       Grid.Row="0"
+                       Text="Greater"
+                       FontSize="20"
+                       HorizontalAlignment="Center"
+                       Foreground="white" />
 
             <Button Grid.Column="0"
                     Grid.Row="1"
-                    Content="YES"
+                    Margin="10,15,10,0"
                     FontSize="20"
-                    Margin="10"
+                    Content="&lt;"
                     Command="{Binding SetGuessResultCommand}"
-                    CommandParameter="{x:Static enums:GuessResult.Equal}"/>
+                    CommandParameter="{x:Static enums:GuessResult.Less}"/>
 
             <Button Grid.Column="1"
                     Grid.Row="1"
-                    Content="NO"
+                    Margin="10,15,10,0"
                     FontSize="20"
-                    Margin="10"
+                    Content="="
                     Command="{Binding SetGuessResultCommand}"
-                    CommandParameter="{x:Static enums:GuessResult.Loss}"/>
+                    CommandParameter="{x:Static enums:GuessResult.Equal}"/>
+
+            <Button Grid.Column="2"
+                    Grid.Row="1"
+                    Margin="10,15,10,0"
+                    FontSize="20"
+                    Content="&gt;"
+                    Command="{Binding SetGuessResultCommand}"
+                    CommandParameter="{x:Static enums:GuessResult.Greater}"/>
+
         </Grid>
     </Grid>
 </UserControl>

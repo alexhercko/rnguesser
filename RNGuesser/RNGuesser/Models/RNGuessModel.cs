@@ -89,9 +89,6 @@ namespace RNGuesser.Models
         {
             switch (guessResult)
             {
-                case GuessResult.Loss:
-                    FinalGuessResult = guessResult;
-                    return;
                 case GuessResult.Equal:
                     CurrentLow = GuessedNumber;
                     CurrentHigh = GuessedNumber;
@@ -103,6 +100,12 @@ namespace RNGuesser.Models
                 case GuessResult.Greater:
                     CurrentLow = GuessedNumber + 1;
                     break;
+            }
+
+            if (CurrentAttempts == MaxAttempts)
+            {
+                FinalGuessResult = GuessResult.Loss;
+                return;
             }
 
             CurrentAttempts++;

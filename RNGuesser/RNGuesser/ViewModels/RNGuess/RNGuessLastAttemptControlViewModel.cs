@@ -14,13 +14,7 @@ namespace RNGuesser.ViewModels.RNGuess
     {
         public RNGuessModel RNGuess { get; set; }
 
-        private int _guessInput;
-
-        public int GuessInput
-        {
-            get { return _guessInput; }
-            set { _guessInput = value; }
-        }
+        public int GuessInput { get; set; }
 
         public RelayCommand GuessRandomlyCommand { get; set; }
 
@@ -39,7 +33,7 @@ namespace RNGuesser.ViewModels.RNGuess
 
             GuessRandomlyCommand = new RelayCommand(GuessRandomly, o => canGuess);
             SetGuessInputCommand = new RelayCommand(SetGuessInput, o => canGuess);
-            SetGuessResultCommand = new RelayCommand(SetGuessResult, o => !canGuess);
+            SetGuessResultCommand = new RelayCommand(SetGuessResult);
         }
 
         private void GuessRandomly(object param)

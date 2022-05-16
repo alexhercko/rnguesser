@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RNGuesser.ViewModels.RNGuess
 {
@@ -15,7 +16,26 @@ namespace RNGuesser.ViewModels.RNGuess
 
         public RelayCommand SetGuessResultCommand { get; set; }
 
+        public RelayCommand GuessRandomlyCommand { get; set; }
+
+        public RelayCommand SetGuessInputCommand { get; set; }
+
+        public int GuessInput { get; set; }
+
         private readonly RNGuessContainerControlViewModel rnguessContainerControlViewModel;
+
+        private Visibility _lastAttemptVisibility = Visibility.Hidden;
+
+        public Visibility LastAttemptVisibility
+        {
+            get { return _lastAttemptVisibility; }
+            set
+            {
+                _lastAttemptVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public RNGuessControlViewModel(RNGuessModel rngGuess, RNGuessContainerControlViewModel rnguessContainerControlViewModel)
         {
@@ -23,30 +43,42 @@ namespace RNGuesser.ViewModels.RNGuess
             SetGuessResultCommand = new RelayCommand(SetGuessResult);
 
             this.rnguessContainerControlViewModel = rnguessContainerControlViewModel;
+
+            GuessRandomlyCommand = new RelayCommand(GuessRandomly, o => LastAttemptVisibility == Visibility.Visible);
+            SetGuessInputCommand = new RelayCommand(SetGuessInput, o => LastAttemptVisibility == Visibility.Visible &&
+                                                                        GuessInput >= RNGuess.CurrentLow && GuessInput <= RNGuess.CurrentHigh);
         }
 
         private void SetGuessResult(object param)
         {
             GuessResult guessResult = (GuessResult)param;
 
-            bool canShowResults = false;
-            if (guessResult == GuessResult.Equal)
-            {
-                canShowResults = true;
-            }
+            bool canShowResults = guessResult == GuessResult.Equal || RNGuess.CurrentAttempts == RNGuess.MaxAttempts;
 
             RNGuess.SetGuess(guessResult);
 
-            if (RNGuess.CurrentAttempts == RNGuess.MaxAttempts)
-            {
-                RNGuessLastAttemptControlViewModel nrguessLastAttemptVm = new RNGuessLastAttemptControlViewModel(RNGuess, rnguessContainerControlViewModel);
-                rnguessContainerControlViewModel.CurrentViewModel = nrguessLastAttemptVm;
-            } else if (canShowResults)
+            if (canShowResults)
             {
                 RNGuessResultControlViewModel rnguessResultVm = new RNGuessResultControlViewModel(RNGuess, rnguessContainerControlViewModel);
                 rnguessContainerControlViewModel.CurrentViewModel = rnguessResultVm;
             }
+
+            if (RNGuess.CurrentAttempts == RNGuess.MaxAttempts)
+            {
+                LastAttemptVisibility = Visibility.Visible;
+            }
+
         }
 
+        private void GuessRandomly(object param)
+        {
+            Random random = new Random();
+            RNGuess.GuessedNumber = random.Next(RNGuess.CurrentLow, RNGuess.CurrentHigh + 1);
+        }
+
+        private void SetGuessInput(object param)
+        {
+            RNGuess.GuessedNumber = GuessInput;
+        }
     }
 }

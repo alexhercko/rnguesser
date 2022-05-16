@@ -22,12 +22,25 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <!-- Last attempt warning -->
+        <TextBlock Grid.Column="0"
+                   Grid.Row="1"
+                   Grid.ColumnSpan="3"
+                   Foreground="white"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="20"
+                   Visibility="{Binding LastAttemptVisibility}">
+            You have 1 last attempt left and multiple options to choose from!
+        </TextBlock>
+
         <!-- Attempts display -->
         <StackPanel Grid.Column="1"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Margin="0, 20, 0, 40">
             <TextBlock Text="Attempt:"
                        Foreground="White"
@@ -48,7 +61,7 @@
 
         <!-- Display Low -->
         <StackPanel Grid.Column="0"
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Orientation="Horizontal"
                     Margin="0, 0, 20, 0"
                     HorizontalAlignment="Right"
@@ -74,7 +87,7 @@
 
         <!-- Current guess -->
         <StackPanel Grid.Column="1"
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Margin="0,5,0,20">
             <TextBlock Text="try:"
                        FontSize="14"
@@ -89,7 +102,7 @@
 
         <!-- Display High -->
         <StackPanel Grid.Column="2"
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Orientation="Horizontal"
                     Margin="20, 0, 0, 0"
                     HorizontalAlignment="Left"
@@ -114,9 +127,20 @@
                        VerticalAlignment="Center"/>
         </StackPanel>
 
+        <!-- Random pick number -->
+        <Button Grid.Column="0"
+                Grid.Row="4"
+                FontSize="15"
+                Margin="20,50"
+                Padding="10,0,10,0"
+                HorizontalAlignment="Center"
+                Content="Pick a number randomly" 
+                Visibility="{Binding LastAttemptVisibility}"
+                Command="{Binding GuessRandomlyCommand}"/>
+
         <!-- Input buttons -->
         <Grid Grid.Column="1"
-              Grid.Row="3"
+              Grid.Row="4"
               Margin="0,20,0,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -173,6 +197,26 @@
                     Command="{Binding SetGuessResultCommand}"
                     CommandParameter="{x:Static enums:GuessResult.Greater}"/>
         </Grid>
+
+        <!-- Guess input -->
+        <StackPanel Grid.Column="2"
+                    Grid.Row="4"
+                    VerticalAlignment="Center"
+                    Visibility="{Binding LastAttemptVisibility}">
+            <TextBlock Text="enter your own guess"
+                       Foreground="white"
+                       HorizontalAlignment="Center"
+                       FontSize="15" />
+            <TextBox Margin="80,5,80,5"
+                     Text="{Binding GuessInput, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                     FontSize="15"
+                     HorizontalContentAlignment="Center">
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="{Binding SetGuessInputCommand}" 
+                                    Key="Return" />
+                    </TextBox.InputBindings>
+            </TextBox>
+        </StackPanel>
 
     </Grid>
 </UserControl>

@@ -15,18 +15,29 @@ namespace RNGuesser.ViewModels.RNGuess
 
         public RelayCommand PlayAgainCommand { get; set; }
 
-        private string _resultString;
+        private string _resultDescription;
 
-        public string ResultString
+        public string ResultDescription
         {
-            get { return _resultString; }
+            get { return _resultDescription; }
             set
             {
-                _resultString = value;
+                _resultDescription = value;
                 OnPropertyChanged();
             }
         }
 
+        private string _result;
+
+        public string Result
+        {
+            get { return _result; }
+            set
+            {
+                _result = value;
+                OnPropertyChanged();
+            }
+        }
 
         private readonly RNGuessContainerControlViewModel rnguessContainerControlViewModel;
 
@@ -36,19 +47,31 @@ namespace RNGuesser.ViewModels.RNGuess
             this.rnguessContainerControlViewModel = rnguessContainerControlViewModel;
             PlayAgainCommand = new RelayCommand(PlayAgain);
 
-            SetResultString();
+            SetResultDescription();
+            SetResult();
         }
 
-        private void SetResultString()
+        private void SetResultDescription()
         {
             switch (RNGuess.FinalGuessResult)
             {
                 case GuessResult.Loss:
-                    ResultString = $"The number was not guessed in {RNGuess.CurrentAttempts} attempts.";
+                    ResultDescription = $"The number was not guessed in {RNGuess.CurrentAttempts} attempts.";
                     break;
                 case GuessResult.Equal:
-                    ResultString = $"The number was guessed in {RNGuess.CurrentAttempts} out of {RNGuess.MaxAttempts} attempts.";
+                    ResultDescription = $"The number was guessed in {RNGuess.CurrentAttempts} out of {RNGuess.MaxAttempts} attempts.";
                     break;
+            }
+        }
+
+        private void SetResult()
+        {
+            if (RNGuess.CurrentLow == RNGuess.CurrentHigh)
+            {
+                Result = $"{RNGuess.CurrentLow}";
+            } else
+            {
+                Result = $"[{RNGuess.CurrentLow}, ..., {RNGuess.CurrentHigh}]";
             }
         }
 
