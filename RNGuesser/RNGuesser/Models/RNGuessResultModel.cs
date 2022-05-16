@@ -31,6 +31,7 @@ namespace RNGuesser.Models
             FinalHigh = rnguess.CurrentHigh;
             MaxAttempts = rnguess.MaxAttempts;
             FinalAttempts = rnguess.CurrentAttempts;
+            FinalResult = rnguess.FinalGuessResult;
 
             UsedCustomGuess = usedCustomGuess;
             UsedRandomGuess = usedRandomGuess;
