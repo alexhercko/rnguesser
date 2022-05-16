@@ -216,6 +216,10 @@
                                     Key="Return" />
                     </TextBox.InputBindings>
             </TextBox>
+            <TextBlock HorizontalAlignment="Center"
+                   Margin="0,2,0,2"
+                   Text="(press enter to confirm)"
+                   Foreground="LightSlateGray" />
         </StackPanel>
 
     </Grid>

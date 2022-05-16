@@ -10,13 +10,15 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -24,32 +26,87 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="0"
-                   Grid.Row="0"
-                   Grid.ColumnSpan="3"
+                   Grid.Row="1"
+                   Grid.ColumnSpan="4"
                    Text="{Binding ResultDescription}"
                    FontSize="25"
                    Margin="20"
+                   HorizontalAlignment="Center"
                    Foreground="white" />
 
         <TextBlock Grid.Column="0"
-                   Grid.Row="1"
+                   Grid.Row="2"
+                   Text="Attempts:"
+                   FontSize="20"
+                   Margin="20,10,0,10"
+                   Foreground="white" />
+
+        <TextBlock Grid.Column="1"
+                   Grid.Row="2"
+                   Foreground="White"
+                   HorizontalAlignment="Right"
+                   Margin="0,10,20,10"
+                   FontSize="20">
+            <TextBlock.Text >
+                <MultiBinding StringFormat="{}{0} / {1}" >
+                    <Binding Path="RNGuess.CurrentAttempts" />
+                    <Binding Path="RNGuess.MaxAttempts" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+
+        <TextBlock Grid.Column="0"
+                   Grid.Row="3"
                    Text="The result is:"
                    Foreground="white"
-                   Margin="20,10,20,10"
+                   HorizontalAlignment="Left"
+                   Margin="20,10,0,10"
                    FontSize="20"/>
 
         <TextBlock Grid.Column="1"
-                   Grid.Row="1"
+                   Grid.Row="3"
                    Text="{Binding Result}"
                    Foreground="white"
-                   Margin="20,10,20,10"
+                   HorizontalAlignment="Right"
+                   Margin="0,10,20,10"
                    FontSize="20"/>
 
+        <TextBlock Grid.Column="0"
+                   Grid.Row="4"
+                   Text="Used random guess for last attempt:"
+                   Foreground="white"
+                   HorizontalAlignment="Left"
+                   Margin="20,10,0,10"
+                   FontSize="20"/>
+
+        <CheckBox Grid.Column="1"
+                  Grid.Row="4"
+                  HorizontalAlignment="Right"
+                  IsEnabled="False"
+                  Margin="0,10,20,10"
+                  VerticalAlignment="Center"
+                  IsChecked="{Binding UsedRandomGuess}"/>
+
+        <TextBlock Grid.Column="0"
+                   Grid.Row="5"
+                   Text="Used custom guess for last attempt:"
+                   Foreground="white"
+                   HorizontalAlignment="Left"
+                   Margin="20,10,0,10"
+                   FontSize="20"/>
+
+        <CheckBox Grid.Column="1"
+                  Grid.Row="5"
+                  HorizontalAlignment="Right"
+                  IsEnabled="False"
+                  Margin="0,10,20,10"
+                  VerticalAlignment="Center"
+                  IsChecked="{Binding UsedCustomGuess}"/>
+
         <Button Grid.Column="0"
-                Grid.Row="2"
+                Grid.Row="6"
                 Grid.ColumnSpan="2"
-                Margin="30, 30, 30, 10"
-                Padding="2, 5, 2, 5"
+                Margin="100,20"
                 Content="Play again"
                 FontSize="20"
                 Command="{Binding PlayAgainCommand}"/>

@@ -36,6 +36,8 @@ namespace RNGuesser.ViewModels.RNGuess
             }
         }
 
+        private bool usedRandomGuess = false;
+        private bool usedCustomGuess = false;
 
         public RNGuessControlViewModel(RNGuessModel rngGuess, RNGuessContainerControlViewModel rnguessContainerControlViewModel)
         {
@@ -59,7 +61,7 @@ namespace RNGuesser.ViewModels.RNGuess
 
             if (canShowResults)
             {
-                RNGuessResultControlViewModel rnguessResultVm = new RNGuessResultControlViewModel(RNGuess, rnguessContainerControlViewModel);
+                RNGuessResultControlViewModel rnguessResultVm = new RNGuessResultControlViewModel(RNGuess, rnguessContainerControlViewModel, usedCustomGuess, usedRandomGuess);
                 rnguessContainerControlViewModel.CurrentViewModel = rnguessResultVm;
             }
 
@@ -74,11 +76,15 @@ namespace RNGuesser.ViewModels.RNGuess
         {
             Random random = new Random();
             RNGuess.GuessedNumber = random.Next(RNGuess.CurrentLow, RNGuess.CurrentHigh + 1);
+            usedRandomGuess = true;
+            usedCustomGuess = false;
         }
 
         private void SetGuessInput(object param)
         {
             RNGuess.GuessedNumber = GuessInput;
+            usedCustomGuess = true;
+            usedRandomGuess = false;
         }
     }
 }

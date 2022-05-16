@@ -87,7 +87,7 @@
 
             <TextBlock HorizontalAlignment="Center"
                    Margin="0,2,0,2"
-                   Text="(press enter to continue)"
+                   Text="(press enter to confirm)"
                    Foreground="LightSlateGray" />
         </StackPanel>
 

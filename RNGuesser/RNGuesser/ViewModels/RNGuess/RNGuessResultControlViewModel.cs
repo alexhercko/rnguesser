@@ -39,13 +39,42 @@ namespace RNGuesser.ViewModels.RNGuess
             }
         }
 
+        // TODO: should be moved to RNGuessResultModel
+        private bool _usedRandomGuess;
+
+        public bool UsedRandomGuess
+        {
+            get { return _usedRandomGuess; }
+            set
+            {
+                _usedRandomGuess = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _usedCustomGuess;
+
+        public bool UsedCustomGuess
+        {
+            get { return _usedCustomGuess; }
+            set
+            {
+                _usedCustomGuess = value;
+                OnPropertyChanged();
+            }
+        }
+
         private readonly RNGuessContainerControlViewModel rnguessContainerControlViewModel;
 
-        public RNGuessResultControlViewModel(RNGuessModel rnguess, RNGuessContainerControlViewModel rnguessContainerControlViewModel)
+        // TODO: ctor should take RNGuessResultModel in the future
+        public RNGuessResultControlViewModel(RNGuessModel rnguess, RNGuessContainerControlViewModel rnguessContainerControlViewModel, bool usedCustomGuess, bool usedRandomGuess)
         {
             RNGuess = rnguess;
             this.rnguessContainerControlViewModel = rnguessContainerControlViewModel;
             PlayAgainCommand = new RelayCommand(PlayAgain);
+
+            UsedRandomGuess = usedRandomGuess;
+            UsedCustomGuess = usedCustomGuess;
 
             SetResultDescription();
             SetResult();
@@ -56,10 +85,10 @@ namespace RNGuesser.ViewModels.RNGuess
             switch (RNGuess.FinalGuessResult)
             {
                 case GuessResult.Loss:
-                    ResultDescription = $"The number was not guessed in {RNGuess.CurrentAttempts} attempts.";
+                    ResultDescription = "The number was not guessed.";
                     break;
                 case GuessResult.Equal:
-                    ResultDescription = $"The number was guessed in {RNGuess.CurrentAttempts} out of {RNGuess.MaxAttempts} attempts.";
+                    ResultDescription = "The number was sucessfully guessed.";
                     break;
             }
         }
@@ -71,7 +100,7 @@ namespace RNGuesser.ViewModels.RNGuess
                 Result = $"{RNGuess.CurrentLow}";
             } else
             {
-                Result = $"[{RNGuess.CurrentLow}, ..., {RNGuess.CurrentHigh}]";
+                Result = $"between <{RNGuess.CurrentLow} and {RNGuess.CurrentHigh}>";
             }
         }
 
