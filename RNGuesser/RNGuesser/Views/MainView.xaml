@@ -9,7 +9,7 @@
         xmlns:enums="clr-namespace:RNGuesser.ViewModels.Enums"
         d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
-        Title="MainView" Height="550" Width="900"
+        Title="MainView" Height="550" Width="1000"
         Background="#181925">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -42,14 +42,21 @@
                     Background="#212228"
                     Foreground="White"
                     Command="{Binding ChangeViewCommand}"
-                    CommandParameter="{x:Static enums:MainControls.RNGame}"/>
+                    CommandParameter="{x:Static enums:ViewModels.RNGame}"/>
             <Button Content="RNGuess"
                     FontSize="20"
                     Padding="50, 10, 50, 10"
                     Background="#212228"
                     Foreground="White"
                     Command="{Binding ChangeViewCommand}"
-                    CommandParameter="{x:Static enums:MainControls.RNGuess}"/>
+                    CommandParameter="{x:Static enums:ViewModels.RNGuess}"/>
+            <Button Content="Result statistics"
+                    FontSize="15"
+                    Padding="50, 10, 50, 10"
+                    Background="#212228"
+                    Foreground="White"
+                    Command="{Binding ChangeViewCommand}"
+                    CommandParameter="{x:Static enums:ViewModels.ResultStatistics}"/>
         </StackPanel>
 
         <Border Grid.Column="1"

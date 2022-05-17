@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace RNGuesser.ViewModels.Enums
 {
-    public enum MainControls {
+    public enum ViewModels {
         RNGame,
-        RNGuess
+        RNGuess,
+        ResultStatistics
     }
 }

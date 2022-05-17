@@ -1,5 +1,6 @@
 ﻿using RNGuesser.Core;
 using RNGuesser.ViewModels.Enums;
+using RNGuesser.Views.Controls.ResultStatistics;
 using RNGuesser.Views.Controls.RNGame;
 using RNGuesser.Views.Controls.RNGuess;
 using System;
@@ -35,15 +36,18 @@ namespace RNGuesser.ViewModels
 
         private void ChangeView(object param)
         {
-            MainControls control = (MainControls)param;
+            Enums.ViewModels control = (Enums.ViewModels)param;
 
             switch (control)
             {
-                case MainControls.RNGame:
+                case Enums.ViewModels.RNGame:
                     CurrentControl = new RNGameContainerControlView();
                     break;
-                case MainControls.RNGuess:
+                case Enums.ViewModels.RNGuess:
                     CurrentControl = new RNGuessContainerControlView();
+                    break;
+                case Enums.ViewModels.ResultStatistics:
+                    CurrentControl = new ResultStatisticsContainerControlView();
                     break;
             }
         }
