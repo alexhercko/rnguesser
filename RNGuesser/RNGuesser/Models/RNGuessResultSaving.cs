@@ -11,7 +11,9 @@ namespace RNGuesser.Models
 {
     public class RNGuessResultSaving
     {
-        public Task SaveResult(RNGuessResultModel rnguessResult) => Task.Run(() =>
+        private static readonly object _lock = new object();
+
+        public async Task SaveResult(RNGuessResultModel rnguessResult) => await Task.Run(() =>
         {
             JsonSerializer serializer = new JsonSerializer();
 
@@ -22,28 +24,31 @@ namespace RNGuesser.Models
 
             string path = "./json.txt";
 
-            if (File.Exists(path))
+            lock (_lock)
             {
-                using (StreamReader sr = new StreamReader(path))
+                if (File.Exists(path))
                 {
-                    using (JsonReader jr = new JsonTextReader(sr))
+                    using (StreamReader sr = new StreamReader(path))
                     {
-                        results = serializer.Deserialize<List<RNGuessResultModel>>(jr);
+                        using (JsonReader jr = new JsonTextReader(sr))
+                        {
+                            results = serializer.Deserialize<List<RNGuessResultModel>>(jr);
+                        }
                     }
                 }
-            }
-            else
-            {
-                results = new List<RNGuessResultModel>();
-            }
-
-            results.Add(rnguessResult);
-
-            using (StreamWriter sw = new StreamWriter(path))
-            {
-                using (JsonWriter jw = new JsonTextWriter(sw))
+                else
                 {
-                    serializer.Serialize(jw, results);
+                    results = new List<RNGuessResultModel>();
+                }
+
+                results.Add(rnguessResult);
+
+                using (StreamWriter sw = new StreamWriter(path))
+                {
+                    using (JsonWriter jw = new JsonTextWriter(sw))
+                    {
+                        serializer.Serialize(jw, results);
+                    }
                 }
             }
         });
