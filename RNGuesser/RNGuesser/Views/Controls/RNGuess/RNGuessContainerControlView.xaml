@@ -5,17 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RNGuesser.Views.Controls.RNGuess"
              xmlns:viewmodels="clr-namespace:RNGuesser.ViewModels.RNGuess"
-             d:DataContext="{d:DesignInstance Type=viewmodels:RNGuessContainerControlViewModel}"
+             d:DataContext="{d:DesignInstance Type=viewmodels:RNGuessContainerViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <DataTemplate DataType="{x:Type viewmodels:RNGuessMenuControlViewModel}">
+        <DataTemplate DataType="{x:Type viewmodels:RNGuessMenuViewModel}">
             <local:RNGuessMenuControlView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:RNGuessControlViewModel}">
+        <DataTemplate DataType="{x:Type viewmodels:RNGuessViewModel}">
             <local:RNGuessControlView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:RNGuessResultControlViewModel}">
+        <DataTemplate DataType="{x:Type viewmodels:RNGuessResultViewModel}">
             <local:RNGuessResultControlView />
         </DataTemplate>
     </UserControl.Resources>

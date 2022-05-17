@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace RNGuesser.ViewModels.RNGame
 {
-    public class RNGameMenuControlViewModel : ObservableObject, IViewModel
+    public class RNGameMenuViewModel : ObservableObject, IViewModel
     {
         public int Low { get; set; }
         public int High { get; set; }
         public int Attempts { get; set; }
 
         public RelayCommand StartPlayingCommand { get; set; }
-        private readonly RNGameContainerControlViewModel rngameControlViewModel;
+        private readonly RNGameContainerViewModel rngameControlViewModel;
 
         private bool canStartPlaying => Low < High && Attempts > 0;
 
-        public RNGameMenuControlViewModel(RNGameContainerControlViewModel rngameControlViewModel)
+        public RNGameMenuViewModel(RNGameContainerViewModel rngameControlViewModel)
         {
             StartPlayingCommand = new RelayCommand(StartPlaying, o => canStartPlaying);
             this.rngameControlViewModel = rngameControlViewModel;
@@ -27,7 +27,7 @@ namespace RNGuesser.ViewModels.RNGame
 
         private void StartPlaying(object param)
         {
-            RNGamePlayControlViewModel rngGamePlayVm = new RNGamePlayControlViewModel(Low, High, Attempts);
+            RNGamePlayViewModel rngGamePlayVm = new RNGamePlayViewModel(Low, High, Attempts);
             rngameControlViewModel.CurrentViewModel = rngGamePlayVm;
         }
     }

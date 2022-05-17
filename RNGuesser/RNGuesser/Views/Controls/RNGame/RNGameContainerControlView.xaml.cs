@@ -24,7 +24,7 @@ namespace RNGuesser.Views.Controls.RNGame
         public RNGameContainerControlView()
         {
             InitializeComponent();
-            DataContext = new RNGameContainerControlViewModel();
+            DataContext = new RNGameContainerViewModel();
         }
     }
 }

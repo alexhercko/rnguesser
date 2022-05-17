@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RNGuesser.ViewModels.RNGuess
 {
-    public class RNGuessResultControlViewModel : ObservableObject, IViewModel
+    public class RNGuessResultViewModel : ObservableObject, IViewModel
     {
         public RNGuessResultModel RNGuessResult { get; set; }
 
@@ -39,10 +39,10 @@ namespace RNGuesser.ViewModels.RNGuess
             }
         }
 
-        private readonly RNGuessContainerControlViewModel rnguessContainerControlViewModel;
+        private readonly RNGuessContainerViewModel rnguessContainerControlViewModel;
         private readonly RNGuessModel rnguess;
 
-        public RNGuessResultControlViewModel(RNGuessResultModel rnguessResult, RNGuessContainerControlViewModel rnguessContainerControlViewModel, RNGuessModel rnguess)
+        public RNGuessResultViewModel(RNGuessResultModel rnguessResult, RNGuessContainerViewModel rnguessContainerControlViewModel, RNGuessModel rnguess)
         {
             RNGuessResult = rnguessResult;
             this.rnguessContainerControlViewModel = rnguessContainerControlViewModel;
@@ -81,7 +81,7 @@ namespace RNGuesser.ViewModels.RNGuess
         {
             rnguess.ResetGame();
             //RNGuessModel rnguess = new RNGuessModel(RNGuessResult.Low, RNGuessResult.High, RNGuessResult.MaxAttempts);
-            RNGuessControlViewModel rnguessPlayVm = new RNGuessControlViewModel(rnguess, rnguessContainerControlViewModel);
+            RNGuessViewModel rnguessPlayVm = new RNGuessViewModel(rnguess, rnguessContainerControlViewModel);
             rnguessContainerControlViewModel.CurrentViewModel = rnguessPlayVm;
         }
     }

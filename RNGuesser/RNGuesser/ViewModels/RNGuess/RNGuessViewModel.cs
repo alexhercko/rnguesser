@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace RNGuesser.ViewModels.RNGuess
 {
-    public class RNGuessControlViewModel : ObservableObject, IViewModel
+    public class RNGuessViewModel : ObservableObject, IViewModel
     {
         public RNGuessModel RNGuess { get; set; }
 
@@ -24,7 +24,7 @@ namespace RNGuesser.ViewModels.RNGuess
 
         public int GuessInput { get; set; }
 
-        private readonly RNGuessContainerControlViewModel rnguessContainerControlViewModel;
+        private readonly RNGuessContainerViewModel rnguessContainerControlViewModel;
 
         private Visibility _lastAttemptVisibility = Visibility.Hidden;
 
@@ -45,7 +45,7 @@ namespace RNGuesser.ViewModels.RNGuess
         private bool usedRandomGuess = false;
         private bool usedCustomGuess = false;
 
-        public RNGuessControlViewModel(RNGuessModel rngGuess, RNGuessContainerControlViewModel rnguessContainerControlViewModel)
+        public RNGuessViewModel(RNGuessModel rngGuess, RNGuessContainerViewModel rnguessContainerControlViewModel)
         {
             RNGuess = rngGuess;
             SetGuessEqualCommand = new RelayCommand(SetGuessResult);
@@ -70,7 +70,7 @@ namespace RNGuesser.ViewModels.RNGuess
             if (canShowResults)
             {
                 RNGuessResultModel rnguessResult = new RNGuessResultModel(RNGuess, usedCustomGuess, usedRandomGuess);
-                RNGuessResultControlViewModel rnguessResultVm = new RNGuessResultControlViewModel(rnguessResult, rnguessContainerControlViewModel, RNGuess);
+                RNGuessResultViewModel rnguessResultVm = new RNGuessResultViewModel(rnguessResult, rnguessContainerControlViewModel, RNGuess);
                 rnguessContainerControlViewModel.CurrentViewModel = rnguessResultVm;
             }
 

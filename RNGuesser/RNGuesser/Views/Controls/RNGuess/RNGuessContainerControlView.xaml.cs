@@ -24,7 +24,7 @@ namespace RNGuesser.Views.Controls.RNGuess
         public RNGuessContainerControlView()
         {
             InitializeComponent();
-            DataContext = new RNGuessContainerControlViewModel();
+            DataContext = new RNGuessContainerViewModel();
         }
     }
 }

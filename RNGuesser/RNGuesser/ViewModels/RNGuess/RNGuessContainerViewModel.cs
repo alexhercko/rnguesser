@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RNGuesser.ViewModels.RNGuess
 {
-    public class RNGuessContainerControlViewModel : ObservableObject, IViewModel
+    public class RNGuessContainerViewModel : ObservableObject, IViewModel
     {
         private IViewModel _currentViewModel;
 
@@ -21,9 +21,9 @@ namespace RNGuesser.ViewModels.RNGuess
             }
         }
 
-        public RNGuessContainerControlViewModel()
+        public RNGuessContainerViewModel()
         {
-            CurrentViewModel = new RNGuessMenuControlViewModel(this);
+            CurrentViewModel = new RNGuessMenuViewModel(this);
         }
     }
 }

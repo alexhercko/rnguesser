@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:RNGuesser.Views.Controls.RNGuess"
              xmlns:enums="clr-namespace:RNGuesser.Models.Enums"
              xmlns:viewmodels="clr-namespace:RNGuesser.ViewModels.RNGuess"
-             d:DataContext="{d:DesignInstance Type=viewmodels:RNGuessControlViewModel}"
+             d:DataContext="{d:DesignInstance Type=viewmodels:RNGuessViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>

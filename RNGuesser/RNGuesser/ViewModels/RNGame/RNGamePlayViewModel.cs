@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RNGuesser.ViewModels.RNGame
 {
-    public class RNGamePlayControlViewModel : ObservableObject, IViewModel
+    public class RNGamePlayViewModel : ObservableObject, IViewModel
     {
         private string _guess = "";
 
@@ -53,7 +53,7 @@ namespace RNGuesser.ViewModels.RNGame
 
         private bool canPlayAgain = false;
 
-        public RNGamePlayControlViewModel(int low, int high, int attempts)
+        public RNGamePlayViewModel(int low, int high, int attempts)
         {
             EnterCommand = new RelayCommand(EnterGuess, o => !canPlayAgain);
             PlayAgainCommand = new RelayCommand(PlayAgain, o => canPlayAgain);
