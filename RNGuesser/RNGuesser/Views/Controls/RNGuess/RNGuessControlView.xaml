@@ -178,15 +178,16 @@
                     Margin="10,15,10,15"
                     FontSize="20"
                     Content="&lt;"
-                    Command="{Binding SetGuessResultCommand}"
-                    CommandParameter="{x:Static enums:GuessResult.Less}"/>
+                    Command="{Binding SetGuessLessCommand}"
+                    CommandParameter="{x:Static enums:GuessResult.Less}">
+            </Button>
 
             <Button Grid.Column="1"
                     Grid.Row="1"
                     Margin="10,15,10,15"
                     FontSize="20"
                     Content="="
-                    Command="{Binding SetGuessResultCommand}"
+                    Command="{Binding SetGuessEqualCommand}"
                     CommandParameter="{x:Static enums:GuessResult.Equal}"/>
 
             <Button Grid.Column="2"
@@ -194,8 +195,8 @@
                     Margin="10,15,10,15"
                     FontSize="20"
                     Content="&gt;"
-                    Command="{Binding SetGuessResultCommand}"
-                    CommandParameter="{x:Static enums:GuessResult.Greater}"/>
+                    Command="{Binding SetGuessGreaterCommand}"
+                    CommandParameter="{x:Static enums:GuessResult.Greater}" />
         </Grid>
 
         <!-- Guess input -->

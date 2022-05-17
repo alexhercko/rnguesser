@@ -14,7 +14,9 @@ namespace RNGuesser.ViewModels.RNGuess
     {
         public RNGuessModel RNGuess { get; set; }
 
-        public RelayCommand SetGuessResultCommand { get; set; }
+        public RelayCommand SetGuessEqualCommand { get; set; }
+        public RelayCommand SetGuessLessCommand { get; set; }
+        public RelayCommand SetGuessGreaterCommand { get; set; }
 
         public RelayCommand GuessRandomlyCommand { get; set; }
 
@@ -36,13 +38,19 @@ namespace RNGuesser.ViewModels.RNGuess
             }
         }
 
+        public bool CanSetLess => RNGuess.GuessedNumber != RNGuess.CurrentLow;
+
+        public bool CanSetGreater => RNGuess.GuessedNumber != RNGuess.CurrentHigh;
+
         private bool usedRandomGuess = false;
         private bool usedCustomGuess = false;
 
         public RNGuessControlViewModel(RNGuessModel rngGuess, RNGuessContainerControlViewModel rnguessContainerControlViewModel)
         {
             RNGuess = rngGuess;
-            SetGuessResultCommand = new RelayCommand(SetGuessResult);
+            SetGuessEqualCommand = new RelayCommand(SetGuessResult);
+            SetGuessLessCommand = new RelayCommand(SetGuessResult, o => CanSetLess);
+            SetGuessGreaterCommand = new RelayCommand(SetGuessResult, o => CanSetGreater);
 
             this.rnguessContainerControlViewModel = rnguessContainerControlViewModel;
 
@@ -51,8 +59,6 @@ namespace RNGuesser.ViewModels.RNGuess
                                                                         GuessInput >= RNGuess.CurrentLow && GuessInput <= RNGuess.CurrentHigh);
         }
 
-        // TODO: fix: it is possible to say higher or lower even when only one possible result
-        // generally saying the result is higher than currentHigh or lower than currentLow causes bugs
         private void SetGuessResult(object param)
         {
             GuessResult guessResult = (GuessResult)param;
