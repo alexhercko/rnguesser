@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RNGuesser.ViewModels
+namespace RNGuesser.ViewModels.RNGame
 {
     public class RNGameMenuControlViewModel : ObservableObject, IViewModel
     {
@@ -15,11 +15,13 @@ namespace RNGuesser.ViewModels
         public int Attempts { get; set; }
 
         public RelayCommand StartPlayingCommand { get; set; }
-        private readonly RNGameControlViewModel rngameControlViewModel;
+        private readonly RNGameContainerControlViewModel rngameControlViewModel;
 
-        public RNGameMenuControlViewModel(RNGameControlViewModel rngameControlViewModel)
+        private bool canStartPlaying => Low < High && Attempts > 0;
+
+        public RNGameMenuControlViewModel(RNGameContainerControlViewModel rngameControlViewModel)
         {
-            StartPlayingCommand = new RelayCommand(StartPlaying);
+            StartPlayingCommand = new RelayCommand(StartPlaying, o => canStartPlaying);
             this.rngameControlViewModel = rngameControlViewModel;
         }
 

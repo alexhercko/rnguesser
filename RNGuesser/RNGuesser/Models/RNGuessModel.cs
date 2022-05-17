@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RNGuesser.Models
 {
-    public class RNGameModel : ObservableObject
+    public class RNGuessModel : ObservableObject
     {
         public int Low { get; }
         public int High { get; }
@@ -52,11 +52,21 @@ namespace RNGuesser.Models
             }
         }
 
-        public int GeneratedNumber { get; set; }
+        private int _guessedNumber = 0;
 
-        private readonly Random random;
+        public int GuessedNumber
+        {
+            get { return _guessedNumber; }
+            set
+            {
+                _guessedNumber = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public RNGameModel(int low, int high, int maxAttempts)
+        public GuessResult FinalGuessResult { get; set; }
+
+        public RNGuessModel(int low, int high, int maxAttempts)
         {
             Low = low;
             High = high;
@@ -67,46 +77,48 @@ namespace RNGuesser.Models
             MaxAttempts = maxAttempts;
             CurrentAttempts = startingAttempt;
 
-            random = new Random();
-            GeneratedNumber = random.Next(Low, High + 1);
+            GuessedNumber = GetNextGuess();
         }
 
-        public GuessResult GetNextResult(int guess)
+        public int GetNextGuess()
         {
-            if (guess < CurrentLow || guess > CurrentHigh)
+            return (CurrentLow + CurrentHigh) / 2;
+        }
+
+        public void SetGuess(GuessResult guessResult)
+        {
+            switch (guessResult)
             {
-                return GuessResult.MissedRange;
+                case GuessResult.Equal:
+                    CurrentLow = GuessedNumber;
+                    CurrentHigh = GuessedNumber;
+                    FinalGuessResult = guessResult;
+                    return;
+                case GuessResult.Less:
+                    CurrentHigh = GuessedNumber - 1;
+                    break;
+                case GuessResult.Greater:
+                    CurrentLow = GuessedNumber + 1;
+                    break;
             }
 
-            if (GeneratedNumber == guess)
+            if (CurrentAttempts == MaxAttempts)
             {
-                return GuessResult.Equal;
-            }
-            else if (CurrentAttempts == MaxAttempts)
-            {
-                return GuessResult.Loss;
+                FinalGuessResult = GuessResult.Loss;
+                return;
             }
 
             CurrentAttempts++;
 
-            if (GeneratedNumber < guess)
-            {
-                CurrentHigh = guess - 1;
-                return GuessResult.Less;
-            }
-            else
-            {
-                CurrentLow = guess + 1;
-                return GuessResult.Greater;
-            }
+            GuessedNumber = GetNextGuess();
         }
 
         public void ResetGame()
         {
-            GeneratedNumber = random.Next(Low, High);
             CurrentAttempts = startingAttempt;
             CurrentLow = Low;
             CurrentHigh = High;
+            GuessedNumber = GetNextGuess();
         }
     }
 }

@@ -8,6 +8,6 @@ namespace RNGuesser.ViewModels.Enums
 {
     public enum MainControls {
         RNGame,
-        RNGuesser
+        RNGuess
     }
 }

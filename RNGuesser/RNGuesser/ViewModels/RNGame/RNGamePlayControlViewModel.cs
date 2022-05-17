@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RNGuesser.ViewModels
+namespace RNGuesser.ViewModels.RNGame
 {
     public class RNGamePlayControlViewModel : ObservableObject, IViewModel
     {

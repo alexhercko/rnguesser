@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RNGuesser.Views.Controls
+namespace RNGuesser.Views.Controls.RNGuess
 {
     /// <summary>
-    /// Interaction logic for RNGuessControlView.xaml
+    /// Interaction logic for RNGuessResultControlView.xaml
     /// </summary>
-    public partial class RNGuessControlView : UserControl
+    public partial class RNGuessResultControlView : UserControl
     {
-        public RNGuessControlView()
+        public RNGuessResultControlView()
         {
             InitializeComponent();
         }

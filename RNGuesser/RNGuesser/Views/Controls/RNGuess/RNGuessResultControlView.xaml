@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="RNGuesser.Views.Controls.RNGuess.RNGuessResultControlView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RNGuesser.Views.Controls.RNGuess"
+             xmlns:viewmodels="clr-namespace:RNGuesser.ViewModels.RNGuess"
+             d:DataContext="{d:DesignInstance Type=viewmodels:RNGuessResultControlViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="0"
+                   Grid.Row="1"
+                   Grid.ColumnSpan="4"
+                   Text="{Binding ResultDescription}"
+                   FontSize="25"
+                   Margin="20"
+                   HorizontalAlignment="Center"
+                   Foreground="white" />
+
+        <TextBlock Grid.Column="0"
+                   Grid.Row="2"
+                   Text="Attempts:"
+                   FontSize="20"
+                   Margin="20,10,0,10"
+                   Foreground="white" />
+
+        <TextBlock Grid.Column="1"
+                   Grid.Row="2"
+                   Foreground="White"
+                   HorizontalAlignment="Right"
+                   Margin="0,10,20,10"
+                   FontSize="20">
+            <TextBlock.Text >
+                <MultiBinding StringFormat="{}{0} / {1}" >
+                    <Binding Path="RNGuessResult.FinalAttempts" />
+                    <Binding Path="RNGuessResult.MaxAttempts" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+
+        <TextBlock Grid.Column="0"
+                   Grid.Row="3"
+                   Text="The result is:"
+                   Foreground="white"
+                   HorizontalAlignment="Left"
+                   Margin="20,10,0,10"
+                   FontSize="20"/>
+
+        <TextBlock Grid.Column="1"
+                   Grid.Row="3"
+                   Text="{Binding Result}"
+                   Foreground="white"
+                   HorizontalAlignment="Right"
+                   Margin="0,10,20,10"
+                   FontSize="20"/>
+
+        <TextBlock Grid.Column="0"
+                   Grid.Row="4"
+                   Text="Used random guess for last attempt:"
+                   Foreground="white"
+                   HorizontalAlignment="Left"
+                   Margin="20,10,0,10"
+                   FontSize="20"/>
+
+        <CheckBox Grid.Column="1"
+                  Grid.Row="4"
+                  HorizontalAlignment="Right"
+                  IsEnabled="False"
+                  Margin="0,10,20,10"
+                  VerticalAlignment="Center"
+                  IsChecked="{Binding RNGuessResult.UsedRandomGuess}"/>
+
+        <TextBlock Grid.Column="0"
+                   Grid.Row="5"
+                   Text="Used custom guess for last attempt:"
+                   Foreground="white"
+                   HorizontalAlignment="Left"
+                   Margin="20,10,0,10"
+                   FontSize="20"/>
+
+        <CheckBox Grid.Column="1"
+                  Grid.Row="5"
+                  HorizontalAlignment="Right"
+                  IsEnabled="False"
+                  Margin="0,10,20,10"
+                  VerticalAlignment="Center"
+                  IsChecked="{Binding RNGuessResult.UsedCustomGuess}"/>
+
+        <Button Grid.Column="0"
+                Grid.Row="6"
+                Grid.ColumnSpan="2"
+                Margin="100,20"
+                Content="Play again"
+                FontSize="20"
+                Command="{Binding PlayAgainCommand}"/>
+    </Grid>
+</UserControl>
