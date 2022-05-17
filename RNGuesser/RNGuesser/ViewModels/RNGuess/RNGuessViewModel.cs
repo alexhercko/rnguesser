@@ -69,8 +69,7 @@ namespace RNGuesser.ViewModels.RNGuess
 
             if (canShowResults)
             {
-                RNGuessResultModel rnguessResult = new RNGuessResultModel(RNGuess, usedCustomGuess, usedRandomGuess);
-                RNGuessResultViewModel rnguessResultVm = new RNGuessResultViewModel(rnguessResult, rnguessContainerControlViewModel, RNGuess);
+                RNGuessResultViewModel rnguessResultVm = new RNGuessResultViewModel(RNGuess, usedCustomGuess, usedRandomGuess, rnguessContainerControlViewModel);
                 rnguessContainerControlViewModel.CurrentViewModel = rnguessResultVm;
             }
 
