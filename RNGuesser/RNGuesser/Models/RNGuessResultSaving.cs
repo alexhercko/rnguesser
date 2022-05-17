@@ -13,7 +13,7 @@ namespace RNGuesser.Models
     {
         private static readonly object _lock = new object();
 
-        public async Task SaveResult(RNGuessResultModel rnguessResult) => await Task.Run(() =>
+        public void SaveResult(RNGuessResultModel rnguessResult) => Task.Run(() =>
         {
             JsonSerializer serializer = new JsonSerializer();
 

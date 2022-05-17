@@ -22,6 +22,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -110,5 +111,13 @@
                 Content="Play again"
                 FontSize="20"
                 Command="{Binding PlayAgainCommand}"/>
+
+        <Button Grid.Column="1"
+                Grid.Row="7"
+                Content="Save result"
+                FontSize="15"
+                Padding="10,5"
+                HorizontalAlignment="Center"
+                Command="{Binding SaveResultCommand}" />
     </Grid>
 </UserControl>

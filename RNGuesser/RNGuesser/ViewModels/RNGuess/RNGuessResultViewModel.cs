@@ -18,6 +18,8 @@ namespace RNGuesser.ViewModels.RNGuess
 
         public RelayCommand PlayAgainCommand { get; set; }
 
+        public RelayCommand SaveResultCommand { get; set; }
+
         private string _resultDescription;
 
         public string ResultDescription
@@ -45,6 +47,8 @@ namespace RNGuesser.ViewModels.RNGuess
         private readonly RNGuessContainerViewModel rnguessContainerControlViewModel;
         private readonly RNGuessModel rnguess;
 
+        private bool canSave = true;
+
         public RNGuessResultViewModel(RNGuessModel rnguess, bool usedCustomGuess, bool usedRandomGuess,RNGuessContainerViewModel rnguessContainerControlViewModel)
         {
             this.rnguessContainerControlViewModel = rnguessContainerControlViewModel;
@@ -63,12 +67,10 @@ namespace RNGuesser.ViewModels.RNGuess
             };
 
             PlayAgainCommand = new RelayCommand(PlayAgain);
+            SaveResultCommand = new RelayCommand(SaveResult, o => canSave);
 
             SetResultDescription();
             SetResult();
-
-            RNGuessResultSaving rnguessResultSaving = new RNGuessResultSaving();
-            rnguessResultSaving.SaveResult(RNGuessResult);
         }
 
         private void SetResultDescription()
@@ -93,6 +95,13 @@ namespace RNGuesser.ViewModels.RNGuess
             {
                 Result = $"between <{RNGuessResult.FinalLow} and {RNGuessResult.FinalHigh}>";
             }
+        }
+
+        private void SaveResult(object param)
+        {
+            RNGuessResultSaving rnguessResultSaving = new RNGuessResultSaving();
+            rnguessResultSaving.SaveResult(RNGuessResult);
+            canSave = false;
         }
 
         private void PlayAgain(object param)
