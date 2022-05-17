@@ -45,12 +45,16 @@ namespace RNGuesser.ViewModels.RNGuess
         private bool usedRandomGuess = false;
         private bool usedCustomGuess = false;
 
-        public RNGuessViewModel(RNGuessModel rngGuess, RNGuessContainerViewModel rnguessContainerControlViewModel)
+        private readonly bool saveResultAutomatically;
+
+        public RNGuessViewModel(RNGuessModel rngGuess, bool saveResultAutomatically, RNGuessContainerViewModel rnguessContainerControlViewModel)
         {
             RNGuess = rngGuess;
             SetGuessEqualCommand = new RelayCommand(SetGuessResult);
             SetGuessLessCommand = new RelayCommand(SetGuessResult, o => canSetLess);
             SetGuessGreaterCommand = new RelayCommand(SetGuessResult, o => canSetGreater);
+
+            this.saveResultAutomatically = saveResultAutomatically;
 
             this.rnguessContainerControlViewModel = rnguessContainerControlViewModel;
 
@@ -69,7 +73,7 @@ namespace RNGuesser.ViewModels.RNGuess
 
             if (canShowResults)
             {
-                RNGuessResultViewModel rnguessResultVm = new RNGuessResultViewModel(RNGuess, usedCustomGuess, usedRandomGuess, rnguessContainerControlViewModel);
+                RNGuessResultViewModel rnguessResultVm = new RNGuessResultViewModel(RNGuess, usedCustomGuess, usedRandomGuess, saveResultAutomatically, rnguessContainerControlViewModel);
                 rnguessContainerControlViewModel.CurrentViewModel = rnguessResultVm;
             }
 

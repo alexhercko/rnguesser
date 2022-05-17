@@ -48,8 +48,9 @@ namespace RNGuesser.ViewModels.RNGuess
         private readonly RNGuessModel rnguess;
 
         private bool canSave = true;
+        private bool saveResultAutomatically;
 
-        public RNGuessResultViewModel(RNGuessModel rnguess, bool usedCustomGuess, bool usedRandomGuess,RNGuessContainerViewModel rnguessContainerControlViewModel)
+        public RNGuessResultViewModel(RNGuessModel rnguess, bool usedCustomGuess, bool usedRandomGuess, bool saveResultAutomatically, RNGuessContainerViewModel rnguessContainerControlViewModel)
         {
             this.rnguessContainerControlViewModel = rnguessContainerControlViewModel;
             this.rnguess = rnguess;
@@ -67,6 +68,15 @@ namespace RNGuesser.ViewModels.RNGuess
             };
 
             PlayAgainCommand = new RelayCommand(PlayAgain);
+
+            if (saveResultAutomatically)
+            {
+                SaveResult(null);
+                canSave = false;
+            }
+
+            this.saveResultAutomatically = saveResultAutomatically;
+
             SaveResultCommand = new RelayCommand(SaveResult, o => canSave);
 
             SetResultDescription();
@@ -107,7 +117,7 @@ namespace RNGuesser.ViewModels.RNGuess
         private void PlayAgain(object param)
         {
             rnguess.ResetGame();
-            RNGuessViewModel rnguessPlayVm = new RNGuessViewModel(rnguess, rnguessContainerControlViewModel);
+            RNGuessViewModel rnguessPlayVm = new RNGuessViewModel(rnguess, saveResultAutomatically, rnguessContainerControlViewModel);
             rnguessContainerControlViewModel.CurrentViewModel = rnguessPlayVm;
         }
     }

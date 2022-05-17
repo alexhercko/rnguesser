@@ -14,6 +14,8 @@ namespace RNGuesser.ViewModels.RNGuess
         public int High { get; set; }
         public int Attempts { get; set; }
 
+        public bool SaveResultAutomatically { get; set; }
+
         public RelayCommand StartPlayingCommand { get; set; }
         private readonly RNGuessContainerViewModel rnguessContainerControlViewModel;
 
@@ -27,7 +29,7 @@ namespace RNGuesser.ViewModels.RNGuess
 
         private void StartPlaying(object param)
         {
-            RNGuessViewModel rnguessVm = new RNGuessViewModel(new RNGuessModel(Low, High, Attempts), rnguessContainerControlViewModel);
+            RNGuessViewModel rnguessVm = new RNGuessViewModel(new RNGuessModel(Low, High, Attempts), SaveResultAutomatically, rnguessContainerControlViewModel);
             rnguessContainerControlViewModel.CurrentViewModel = rnguessVm;
         }
     }
