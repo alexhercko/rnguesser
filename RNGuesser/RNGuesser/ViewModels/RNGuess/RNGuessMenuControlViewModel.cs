@@ -17,9 +17,11 @@ namespace RNGuesser.ViewModels.RNGuess
         public RelayCommand StartPlayingCommand { get; set; }
         private readonly RNGuessContainerControlViewModel rnguessContainerControlViewModel;
 
+        private bool canStartPlaying => Low < High && Attempts > 0;
+
         public RNGuessMenuControlViewModel(RNGuessContainerControlViewModel rnguessContainerControlViewModel)
         {
-            StartPlayingCommand = new RelayCommand(StartPlaying);
+            StartPlayingCommand = new RelayCommand(StartPlaying, o => canStartPlaying);
             this.rnguessContainerControlViewModel = rnguessContainerControlViewModel;
         }
 

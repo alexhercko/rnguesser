@@ -17,9 +17,11 @@ namespace RNGuesser.ViewModels.RNGame
         public RelayCommand StartPlayingCommand { get; set; }
         private readonly RNGameContainerControlViewModel rngameControlViewModel;
 
+        private bool canStartPlaying => Low < High && Attempts > 0;
+
         public RNGameMenuControlViewModel(RNGameContainerControlViewModel rngameControlViewModel)
         {
-            StartPlayingCommand = new RelayCommand(StartPlaying);
+            StartPlayingCommand = new RelayCommand(StartPlaying, o => canStartPlaying);
             this.rngameControlViewModel = rngameControlViewModel;
         }
 

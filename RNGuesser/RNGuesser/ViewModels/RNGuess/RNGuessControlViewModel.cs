@@ -38,9 +38,9 @@ namespace RNGuesser.ViewModels.RNGuess
             }
         }
 
-        public bool CanSetLess => RNGuess.GuessedNumber != RNGuess.CurrentLow;
+        private bool canSetLess => RNGuess.GuessedNumber != RNGuess.CurrentLow;
 
-        public bool CanSetGreater => RNGuess.GuessedNumber != RNGuess.CurrentHigh;
+        private bool canSetGreater => RNGuess.GuessedNumber != RNGuess.CurrentHigh;
 
         private bool usedRandomGuess = false;
         private bool usedCustomGuess = false;
@@ -49,8 +49,8 @@ namespace RNGuesser.ViewModels.RNGuess
         {
             RNGuess = rngGuess;
             SetGuessEqualCommand = new RelayCommand(SetGuessResult);
-            SetGuessLessCommand = new RelayCommand(SetGuessResult, o => CanSetLess);
-            SetGuessGreaterCommand = new RelayCommand(SetGuessResult, o => CanSetGreater);
+            SetGuessLessCommand = new RelayCommand(SetGuessResult, o => canSetLess);
+            SetGuessGreaterCommand = new RelayCommand(SetGuessResult, o => canSetGreater);
 
             this.rnguessContainerControlViewModel = rnguessContainerControlViewModel;
 
