@@ -87,11 +87,11 @@ namespace RNGuesser.ViewModels.RNGuess
         {
             if (RNGuessResult.ResultGuessed)
             {
-                ResultDescription = "The number was not guessed.";
+                ResultDescription = "The number was sucessfully guessed.";
             }
             else
             {
-                ResultDescription = "The number was sucessfully guessed.";
+                ResultDescription = "The number was not guessed.";
             }
         }
 
