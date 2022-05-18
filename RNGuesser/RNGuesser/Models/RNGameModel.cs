@@ -103,7 +103,7 @@ namespace RNGuesser.Models
 
         public void ResetGame()
         {
-            GeneratedNumber = random.Next(Low, High);
+            GeneratedNumber = random.Next(Low, High + 1);
             CurrentAttempts = startingAttempt;
             CurrentLow = Low;
             CurrentHigh = High;

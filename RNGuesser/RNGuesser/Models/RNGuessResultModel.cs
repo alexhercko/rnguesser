@@ -21,9 +21,11 @@ namespace RNGuesser.Models
         public int MaxAttempts { get; set; }
         public int FinalAttempts { get; set; }
 
-        public GuessResult FinalGuessResult { get; set; }
+        public bool ResultGuessed { get; set; }
 
         public bool UsedCustomGuess { get; set; }
         public bool UsedRandomGuess { get; set; }
+
+        // TODO: option if human or computer generated
     }
 }
