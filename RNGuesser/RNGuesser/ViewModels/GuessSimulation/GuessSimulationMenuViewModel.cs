@@ -2,6 +2,7 @@
 using RNGuesser.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,20 @@ namespace RNGuesser.ViewModels.GuessSimulation
             }
         }
 
+        private int _selectedTaskAmount = 1;
+
+        public int SelectedTaskAmount
+        {
+            get { return _selectedTaskAmount; }
+            set {
+                _selectedTaskAmount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private readonly IEnumerable<int> _taskAmounts = Enumerable.Range(1, 10);
+        public IEnumerable<int> TaskAmounts { get { return _taskAmounts; } }
+
         public int Low { get; set; }
         public int High { get; set; }
         public int Attempts { get; set; }
@@ -36,6 +51,7 @@ namespace RNGuesser.ViewModels.GuessSimulation
         public GuessSimulationMenuViewModel(GuessSimulationContainerViewModel containerViewModel)
         {
             this.containerViewModel = containerViewModel;
+
             StartSimulationCommandAsync = new RelayCommandAsync(StartSimulationAsync, o => inputValid && !StartSimulationCommandAsync.RunningTasks.Any());
         }
 
@@ -43,7 +59,7 @@ namespace RNGuesser.ViewModels.GuessSimulation
         {
             ButtonStatus = "Simulation running...";
             GuessSimulationModel guessSimulation = new GuessSimulationModel();
-            ResultStatisticsModel resultStatistic = await guessSimulation.RunSimulation(Low, High, Attempts, Amount);
+            ResultStatisticsModel resultStatistic = await guessSimulation.RunParallelSimulations(Low, High, Attempts, Amount, SelectedTaskAmount);
 
             containerViewModel.CurrentViewModel = new GuessSimulationResultsViewModel(resultStatistic);
         }

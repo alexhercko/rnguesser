@@ -44,8 +44,47 @@ namespace RNGuesser.Models
                 RNGuess.ResetGuess();
             }
 
-            resultStatistic.SuccessRate = (float)resultStatistic.SuccessfulGuesses / resultStatistic.TotalGuesses * 100;
             return resultStatistic;
         });
+
+        public async Task<ResultStatisticsModel> RunParallelSimulations(int low, int high, int attempts, int amount, int tasks)
+        {
+            int amountPerTask = amount / tasks;
+
+            List<Task<ResultStatisticsModel>> simulationTasks = new List<Task<ResultStatisticsModel>>();
+
+            for (int task = 0; task < tasks; task++)
+            {
+                if (task == tasks - 1)
+                {
+                    amountPerTask = amount;
+                }
+
+                Task<ResultStatisticsModel> currentTask = RunSimulation(low, high, attempts, amountPerTask);
+                simulationTasks.Add(currentTask);
+                amount -= amountPerTask;
+            }
+
+            List<ResultStatisticsModel> resultStatistics = (await Task.WhenAll(simulationTasks)).ToList();
+
+            ResultStatisticsModel finalStatistic = new ResultStatisticsModel()
+            {
+                Low = low,
+                High = high,
+                Attempts = attempts,
+                UsedCustomGuess = false,
+                UsedRandomGuess = false
+            };
+
+            foreach (ResultStatisticsModel resultStatistic in resultStatistics)
+            {
+                finalStatistic.TotalGuesses += resultStatistic.TotalGuesses;
+                finalStatistic.SuccessfulGuesses += resultStatistic.SuccessfulGuesses;
+            }
+
+            finalStatistic.SuccessRate = (float)finalStatistic.SuccessfulGuesses / finalStatistic.TotalGuesses * 100;
+
+            return finalStatistic;
+        }
     }
 }
