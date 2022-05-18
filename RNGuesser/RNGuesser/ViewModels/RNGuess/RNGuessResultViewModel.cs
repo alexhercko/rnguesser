@@ -115,7 +115,7 @@ namespace RNGuesser.ViewModels.RNGuess
 
         private void PlayAgain(object param)
         {
-            rnguess.ResetGame();
+            rnguess.ResetGuess();
             RNGuessViewModel rnguessPlayVm = new RNGuessViewModel(rnguess, saveResultAutomatically, rnguessContainerControlViewModel);
             rnguessContainerControlViewModel.CurrentViewModel = rnguessPlayVm;
         }

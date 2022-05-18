@@ -18,5 +18,6 @@ namespace RNGuesser.Models
         public int SuccessfulGuesses { get; set; }
 
         public float SuccessRate { get; set; }
+        // TODO: possibly add average success attempt
     }
 }

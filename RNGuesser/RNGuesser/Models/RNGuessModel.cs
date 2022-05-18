@@ -113,7 +113,7 @@ namespace RNGuesser.Models
             GuessedNumber = GetNextGuess();
         }
 
-        public void ResetGame()
+        public void ResetGuess()
         {
             CurrentAttempts = startingAttempt;
             CurrentLow = Low;

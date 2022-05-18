@@ -22,7 +22,6 @@ namespace RNGuesser.ViewModels.ResultStatistics
             }
         }
 
-
         public RelayCommandAsync ShowStatisticsCommandAsync { get; set; }
 
         private readonly ResultStatisticsContainerViewModel containerViewModel;
