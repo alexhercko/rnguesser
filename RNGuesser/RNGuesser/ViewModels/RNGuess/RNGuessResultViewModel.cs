@@ -1,11 +1,14 @@
-﻿using RNGuesser.Core;
+﻿using Newtonsoft.Json;
+using RNGuesser.Core;
 using RNGuesser.Models;
 using RNGuesser.Models.Enums;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RNGuesser.ViewModels.RNGuess
 {
@@ -14,6 +17,8 @@ namespace RNGuesser.ViewModels.RNGuess
         public RNGuessResultModel RNGuessResult { get; set; }
 
         public RelayCommand PlayAgainCommand { get; set; }
+
+        public RelayCommand SaveResultCommand { get; set; }
 
         private string _resultDescription;
 
@@ -42,12 +47,37 @@ namespace RNGuesser.ViewModels.RNGuess
         private readonly RNGuessContainerViewModel rnguessContainerControlViewModel;
         private readonly RNGuessModel rnguess;
 
-        public RNGuessResultViewModel(RNGuessResultModel rnguessResult, RNGuessContainerViewModel rnguessContainerControlViewModel, RNGuessModel rnguess)
+        private bool canSave = true;
+        private bool saveResultAutomatically;
+
+        public RNGuessResultViewModel(RNGuessModel rnguess, bool usedCustomGuess, bool usedRandomGuess, bool saveResultAutomatically, RNGuessContainerViewModel rnguessContainerControlViewModel)
         {
-            RNGuessResult = rnguessResult;
             this.rnguessContainerControlViewModel = rnguessContainerControlViewModel;
             this.rnguess = rnguess;
+
+            RNGuessResult = new RNGuessResultModel() {
+                Low = rnguess.Low,
+                High = rnguess.High,
+                FinalLow = rnguess.CurrentLow,
+                FinalHigh = rnguess.CurrentHigh,
+                MaxAttempts = rnguess.MaxAttempts,
+                FinalAttempts = rnguess.CurrentAttempts,
+                FinalGuessResult = rnguess.FinalGuessResult,
+                UsedCustomGuess = usedCustomGuess,
+                UsedRandomGuess = usedRandomGuess
+            };
+
             PlayAgainCommand = new RelayCommand(PlayAgain);
+
+            if (saveResultAutomatically)
+            {
+                SaveResult(null);
+                canSave = false;
+            }
+
+            this.saveResultAutomatically = saveResultAutomatically;
+
+            SaveResultCommand = new RelayCommand(SaveResult, o => canSave);
 
             SetResultDescription();
             SetResult();
@@ -55,7 +85,7 @@ namespace RNGuesser.ViewModels.RNGuess
 
         private void SetResultDescription()
         {
-            switch (RNGuessResult.FinalResult)
+            switch (RNGuessResult.FinalGuessResult)
             {
                 case GuessResult.Loss:
                     ResultDescription = "The number was not guessed.";
@@ -77,11 +107,17 @@ namespace RNGuesser.ViewModels.RNGuess
             }
         }
 
+        private void SaveResult(object param)
+        {
+            RNGuessResultSaving rnguessResultSaving = new RNGuessResultSaving();
+            rnguessResultSaving.SaveResult(RNGuessResult);
+            canSave = false;
+        }
+
         private void PlayAgain(object param)
         {
             rnguess.ResetGame();
-            //RNGuessModel rnguess = new RNGuessModel(RNGuessResult.Low, RNGuessResult.High, RNGuessResult.MaxAttempts);
-            RNGuessViewModel rnguessPlayVm = new RNGuessViewModel(rnguess, rnguessContainerControlViewModel);
+            RNGuessViewModel rnguessPlayVm = new RNGuessViewModel(rnguess, saveResultAutomatically, rnguessContainerControlViewModel);
             rnguessContainerControlViewModel.CurrentViewModel = rnguessPlayVm;
         }
     }

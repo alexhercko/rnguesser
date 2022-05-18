@@ -20,6 +20,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -72,8 +73,16 @@
                  HorizontalContentAlignment="Center"
                  Margin="0,10,100,10"/>
 
+        <CheckBox Grid.Column="1"
+                  Grid.Row="4"
+                  HorizontalAlignment="Center"
+                  Margin="10"
+                  Content="Save result automatically"
+                  Foreground="white"
+                  IsChecked="{Binding SaveResultAutomatically, Mode=OneWayToSource, FallbackValue=True}"/>
+
         <Button Grid.Column="0"
-                Grid.Row="4"
+                Grid.Row="5"
                 Grid.ColumnSpan="2"
                 Content="Start playing"
                 FontSize="25"
