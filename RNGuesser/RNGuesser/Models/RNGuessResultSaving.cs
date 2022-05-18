@@ -52,5 +52,35 @@ namespace RNGuesser.Models
                 }
             }
         });
+
+        public Task<List<RNGuessResultModel>> LoadResults()
+        {
+            return Task.Run(() =>
+            {
+                JsonSerializer serializer = new JsonSerializer();
+
+                serializer.Formatting = Formatting.Indented;
+                serializer.Converters.Add(new StringEnumConverter());
+
+                string path = "./json.txt";
+
+                var results = new List<RNGuessResultModel>();
+                lock (_lock)
+                {
+                    if (File.Exists(path))
+                    {
+                        using (StreamReader sr = new StreamReader(path))
+                        {
+                            using (JsonReader jr = new JsonTextReader(sr))
+                            {
+                                results = serializer.Deserialize<List<RNGuessResultModel>>(jr);
+                            }
+                        }
+                    }
+                }
+
+                return results;
+            });
+        }
     }
 }

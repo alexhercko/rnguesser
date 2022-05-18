@@ -21,6 +21,7 @@ namespace RNGuesser.Models
         public int MaxAttempts { get; set; }
         public int FinalAttempts { get; set; }
 
+        // TODO: maybe could just be a bool
         public GuessResult FinalGuessResult { get; set; }
 
         public bool UsedCustomGuess { get; set; }
