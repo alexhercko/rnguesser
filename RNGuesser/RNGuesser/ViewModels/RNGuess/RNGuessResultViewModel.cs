@@ -48,7 +48,7 @@ namespace RNGuesser.ViewModels.RNGuess
         private readonly RNGuessModel rnguess;
 
         private bool canSave = true;
-        private bool saveResultAutomatically;
+        private readonly bool saveResultAutomatically;
 
         public RNGuessResultViewModel(RNGuessModel rnguess, bool usedCustomGuess, bool usedRandomGuess, bool saveResultAutomatically, RNGuessContainerViewModel rnguessContainerControlViewModel)
         {
@@ -62,7 +62,7 @@ namespace RNGuesser.ViewModels.RNGuess
                 FinalHigh = rnguess.CurrentHigh,
                 MaxAttempts = rnguess.MaxAttempts,
                 FinalAttempts = rnguess.CurrentAttempts,
-                FinalGuessResult = rnguess.FinalGuessResult,
+                ResultGuessed = rnguess.FinalGuessResult == GuessResult.Equal,
                 UsedCustomGuess = usedCustomGuess,
                 UsedRandomGuess = usedRandomGuess
             };
@@ -85,14 +85,13 @@ namespace RNGuesser.ViewModels.RNGuess
 
         private void SetResultDescription()
         {
-            switch (RNGuessResult.FinalGuessResult)
+            if (RNGuessResult.ResultGuessed)
             {
-                case GuessResult.Loss:
-                    ResultDescription = "The number was not guessed.";
-                    break;
-                case GuessResult.Equal:
-                    ResultDescription = "The number was sucessfully guessed.";
-                    break;
+                ResultDescription = "The number was not guessed.";
+            }
+            else
+            {
+                ResultDescription = "The number was sucessfully guessed.";
             }
         }
 
@@ -109,7 +108,7 @@ namespace RNGuesser.ViewModels.RNGuess
 
         private void SaveResult(object param)
         {
-            RNGuessResultSaving rnguessResultSaving = new RNGuessResultSaving();
+            RNGuessResultSerializer rnguessResultSaving = new RNGuessResultSerializer();
             rnguessResultSaving.SaveResult(RNGuessResult);
             canSave = false;
         }

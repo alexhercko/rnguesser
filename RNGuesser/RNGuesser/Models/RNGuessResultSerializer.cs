@@ -9,20 +9,19 @@ using System.Threading.Tasks;
 
 namespace RNGuesser.Models
 {
-    public class RNGuessResultSaving
+    public class RNGuessResultSerializer
     {
         private static readonly object _lock = new object();
+
+        private const string path = "./results.txt";
 
         public void SaveResult(RNGuessResultModel rnguessResult) => Task.Run(() =>
         {
             JsonSerializer serializer = new JsonSerializer();
 
             serializer.Formatting = Formatting.Indented;
-            serializer.Converters.Add(new StringEnumConverter());
 
             List<RNGuessResultModel> results;
-
-            string path = "./json.txt";
 
             lock (_lock)
             {
@@ -53,34 +52,28 @@ namespace RNGuesser.Models
             }
         });
 
-        public Task<List<RNGuessResultModel>> LoadResults()
+        public Task<List<RNGuessResultModel>> LoadResults() => Task.Run(() =>
         {
-            return Task.Run(() =>
+            JsonSerializer serializer = new JsonSerializer();
+
+            serializer.Formatting = Formatting.Indented;
+
+            var results = new List<RNGuessResultModel>();
+            lock (_lock)
             {
-                JsonSerializer serializer = new JsonSerializer();
-
-                serializer.Formatting = Formatting.Indented;
-                serializer.Converters.Add(new StringEnumConverter());
-
-                string path = "./json.txt";
-
-                var results = new List<RNGuessResultModel>();
-                lock (_lock)
+                if (File.Exists(path))
                 {
-                    if (File.Exists(path))
+                    using (StreamReader sr = new StreamReader(path))
                     {
-                        using (StreamReader sr = new StreamReader(path))
+                        using (JsonReader jr = new JsonTextReader(sr))
                         {
-                            using (JsonReader jr = new JsonTextReader(sr))
-                            {
-                                results = serializer.Deserialize<List<RNGuessResultModel>>(jr);
-                            }
+                            results = serializer.Deserialize<List<RNGuessResultModel>>(jr);
                         }
                     }
                 }
+            }
 
-                return results;
-            });
-        }
+            return results;
+        });
     }
 }

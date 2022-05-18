@@ -23,9 +23,9 @@
 
         <Button Grid.Column="1"
                 Grid.Row="1"
-                Content="Show statistics"
+                Content="{Binding ButtonStatus}"
                 FontSize="20"
                 Padding="10"
-                Command="{Binding ShowStatisticsCommand}"/>
+                Command="{Binding ShowStatisticsCommandAsync}"/>
     </Grid>
 </UserControl>

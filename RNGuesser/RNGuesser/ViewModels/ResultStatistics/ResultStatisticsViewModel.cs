@@ -13,13 +13,9 @@ namespace RNGuesser.ViewModels.ResultStatistics
     {
         public List<ResultStatisticsModel> ResultStatistics { get; set; }
 
-        public ResultStatisticsViewModel()
+        public ResultStatisticsViewModel(List<ResultStatisticsModel> resultStatistics)
         {
-            RNGuessResultSaving guessResultSaving = new RNGuessResultSaving();
-            List<RNGuessResultModel> guessResults = guessResultSaving.LoadResults().Result;
-
-            ResultAnalyzer resultAnalyzer = new ResultAnalyzer();
-            ResultStatistics = resultAnalyzer.GetResultStatistics(guessResults);
+            ResultStatistics = resultStatistics;
         }
     }
 }
