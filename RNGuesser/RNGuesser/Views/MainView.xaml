@@ -42,28 +42,28 @@
                     Background="#212228"
                     Foreground="White"
                     Command="{Binding ChangeViewCommand}"
-                    CommandParameter="{x:Static enums:ViewModels.RNGame}"/>
+                    CommandParameter="{x:Static enums:ViewModel.RNGame}"/>
             <Button Content="RNGuess"
                     FontSize="20"
                     Padding="50, 10, 50, 10"
                     Background="#212228"
                     Foreground="White"
                     Command="{Binding ChangeViewCommand}"
-                    CommandParameter="{x:Static enums:ViewModels.RNGuess}"/>
+                    CommandParameter="{x:Static enums:ViewModel.RNGuess}"/>
             <Button Content="Result statistics"
                     FontSize="17"
                     Padding="50, 10, 50, 10"
                     Background="#212228"
                     Foreground="White"
                     Command="{Binding ChangeViewCommand}"
-                    CommandParameter="{x:Static enums:ViewModels.ResultStatistics}"/>
+                    CommandParameter="{x:Static enums:ViewModel.ResultStatistics}"/>
             <Button Content="Guess simulation"
                     FontSize="17"
                     Padding="50, 10, 50, 10"
                     Background="#212228"
                     Foreground="White"
                     Command="{Binding ChangeViewCommand}"
-                    CommandParameter="{x:Static enums:ViewModels.GuessSimulation}"/>
+                    CommandParameter="{x:Static enums:ViewModel.GuessSimulation}"/>
         </StackPanel>
 
         <Border Grid.Column="1"

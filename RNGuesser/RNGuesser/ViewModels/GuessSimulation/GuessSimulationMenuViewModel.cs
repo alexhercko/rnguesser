@@ -1,5 +1,6 @@
 ﻿using RNGuesser.Core;
 using RNGuesser.Models;
+using RNGuesser.Models.GuessMethods;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -34,6 +35,10 @@ namespace RNGuesser.ViewModels.GuessSimulation
             }
         }
 
+        public ObservableCollection<GuessMethod> GuessMethods { get; set; }
+
+        public GuessMethod SelectedGuessMethod { get; set; } = GuessMethod.BinarySearch;
+
         private readonly IEnumerable<int> _taskAmounts = Enumerable.Range(1, 10);
         public IEnumerable<int> TaskAmounts { get { return _taskAmounts; } }
 
@@ -53,13 +58,22 @@ namespace RNGuesser.ViewModels.GuessSimulation
             this.containerViewModel = containerViewModel;
 
             StartSimulationCommandAsync = new RelayCommandAsync(StartSimulationAsync, o => inputValid && !StartSimulationCommandAsync.RunningTasks.Any());
+
+            GuessMethods = new ObservableCollection<GuessMethod>(
+                Enum.GetValues(typeof(GuessMethod))
+                    .Cast<GuessMethod>()
+            );
         }
 
         private async Task StartSimulationAsync(object parameter)
         {
             ButtonStatus = "Simulation running...";
             GuessSimulationModel guessSimulation = new GuessSimulationModel();
-            ResultStatisticsModel resultStatistic = await guessSimulation.RunParallelSimulations(Low, High, Attempts, Amount, SelectedTaskAmount);
+
+            GuessMethodPicker guessMethodPicker = new GuessMethodPicker();
+            IGuessMethod guessMethod = guessMethodPicker.GetGuessMethod(SelectedGuessMethod);
+
+            ResultStatisticsModel resultStatistic = await guessSimulation.RunParallelSimulations(Low, High, Attempts, Amount, SelectedTaskAmount, guessMethod);
 
             containerViewModel.CurrentViewModel = new GuessSimulationResultsViewModel(resultStatistic);
         }

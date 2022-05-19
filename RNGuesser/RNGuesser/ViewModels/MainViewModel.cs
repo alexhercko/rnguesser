@@ -37,20 +37,20 @@ namespace RNGuesser.ViewModels
 
         private void ChangeView(object param)
         {
-            Enums.ViewModels control = (Enums.ViewModels)param;
+            ViewModel control = (ViewModel)param;
 
             switch (control)
             {
-                case Enums.ViewModels.RNGame:
+                case ViewModel.RNGame:
                     CurrentControl = new RNGameContainerControlView();
                     break;
-                case Enums.ViewModels.RNGuess:
+                case ViewModel.RNGuess:
                     CurrentControl = new RNGuessContainerControlView();
                     break;
-                case Enums.ViewModels.ResultStatistics:
+                case ViewModel.ResultStatistics:
                     CurrentControl = new ResultStatisticsContainerControlView();
                     break;
-                case Enums.ViewModels.GuessSimulation:
+                case ViewModel.GuessSimulation:
                     CurrentControl = new GuessSimulationContainerControlView();
                     break;
             }
