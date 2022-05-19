@@ -67,7 +67,7 @@ namespace RNGuesser.Models
 
         public GuessResult FinalGuessResult { get; set; }
 
-        private IGuessMethod guessMethod;
+        private readonly IGuessMethod guessMethod;
 
         public RNGuessModel(int low, int high, int maxAttempts, IGuessMethod guessMethod)
         {
@@ -82,7 +82,7 @@ namespace RNGuesser.Models
 
             this.guessMethod = guessMethod;
 
-            GuessedNumber = guessMethod.GetNextGuess(CurrentLow, CurrentHigh, MaxAttempts - CurrentAttempts);
+            GuessedNumber = guessMethod.GetNextGuess(CurrentLow, CurrentHigh, MaxAttempts - CurrentAttempts + 1);
         }
 
         public void SetGuess(GuessResult guessResult)
@@ -110,7 +110,7 @@ namespace RNGuesser.Models
 
             CurrentAttempts++;
 
-            GuessedNumber = guessMethod.GetNextGuess(CurrentLow, CurrentHigh, MaxAttempts - CurrentAttempts);
+            GuessedNumber = guessMethod.GetNextGuess(CurrentLow, CurrentHigh, MaxAttempts - CurrentAttempts + 1);
         }
 
         public void ResetGuess()
@@ -118,7 +118,7 @@ namespace RNGuesser.Models
             CurrentAttempts = startingAttempt;
             CurrentLow = Low;
             CurrentHigh = High;
-            GuessedNumber = guessMethod.GetNextGuess(CurrentLow, CurrentHigh, MaxAttempts - CurrentAttempts);
+            GuessedNumber = guessMethod.GetNextGuess(CurrentLow, CurrentHigh, MaxAttempts - CurrentAttempts + 1);
         }
     }
 }

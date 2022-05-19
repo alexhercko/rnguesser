@@ -24,7 +24,7 @@ namespace RNGuesser.Models.GuessMethods
 
             int nextGuess = binarySearchGuess.GetNextGuess(low, high, remainingAttempts);
 
-            int guessable = (int)Math.Pow(2, remainingAttempts) - 1;
+            int guessable = (int)Math.Pow(2, (remainingAttempts - 1)) - 1;
 
             int guessableLow = Math.Min(low + guessable, nextGuess);
             int guessableHigh = Math.Max(high - guessable, nextGuess);
