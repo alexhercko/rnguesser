@@ -87,11 +87,11 @@ namespace RNGuesser.ViewModels.RNGuess
         {
             if (RNGuessResult.ResultGuessed)
             {
-                ResultDescription = "The number was not guessed.";
+                ResultDescription = "The number was sucessfully guessed.";
             }
             else
             {
-                ResultDescription = "The number was sucessfully guessed.";
+                ResultDescription = "The number was not guessed.";
             }
         }
 
@@ -115,7 +115,7 @@ namespace RNGuesser.ViewModels.RNGuess
 
         private void PlayAgain(object param)
         {
-            rnguess.ResetGame();
+            rnguess.ResetGuess();
             RNGuessViewModel rnguessPlayVm = new RNGuessViewModel(rnguess, saveResultAutomatically, rnguessContainerControlViewModel);
             rnguessContainerControlViewModel.CurrentViewModel = rnguessPlayVm;
         }

@@ -1,5 +1,6 @@
 ﻿using RNGuesser.Core;
 using RNGuesser.ViewModels.Enums;
+using RNGuesser.Views.Controls.GuessSimulation;
 using RNGuesser.Views.Controls.ResultStatistics;
 using RNGuesser.Views.Controls.RNGame;
 using RNGuesser.Views.Controls.RNGuess;
@@ -48,6 +49,9 @@ namespace RNGuesser.ViewModels
                     break;
                 case Enums.ViewModels.ResultStatistics:
                     CurrentControl = new ResultStatisticsContainerControlView();
+                    break;
+                case Enums.ViewModels.GuessSimulation:
+                    CurrentControl = new GuessSimulationContainerControlView();
                     break;
             }
         }

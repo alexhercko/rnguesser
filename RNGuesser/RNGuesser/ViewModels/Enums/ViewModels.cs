@@ -9,6 +9,7 @@ namespace RNGuesser.ViewModels.Enums
     public enum ViewModels {
         RNGame,
         RNGuess,
-        ResultStatistics
+        ResultStatistics,
+        GuessSimulation
     }
 }

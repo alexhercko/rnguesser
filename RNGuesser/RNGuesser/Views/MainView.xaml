@@ -51,12 +51,19 @@
                     Command="{Binding ChangeViewCommand}"
                     CommandParameter="{x:Static enums:ViewModels.RNGuess}"/>
             <Button Content="Result statistics"
-                    FontSize="15"
+                    FontSize="17"
                     Padding="50, 10, 50, 10"
                     Background="#212228"
                     Foreground="White"
                     Command="{Binding ChangeViewCommand}"
                     CommandParameter="{x:Static enums:ViewModels.ResultStatistics}"/>
+            <Button Content="Guess simulation"
+                    FontSize="17"
+                    Padding="50, 10, 50, 10"
+                    Background="#212228"
+                    Foreground="White"
+                    Command="{Binding ChangeViewCommand}"
+                    CommandParameter="{x:Static enums:ViewModels.GuessSimulation}"/>
         </StackPanel>
 
         <Border Grid.Column="1"
