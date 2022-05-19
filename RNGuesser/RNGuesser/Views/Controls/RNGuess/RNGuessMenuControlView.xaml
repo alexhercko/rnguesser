@@ -21,6 +21,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -73,8 +74,25 @@
                  HorizontalContentAlignment="Center"
                  Margin="0,10,100,10"/>
 
-        <CheckBox Grid.Column="1"
+        <TextBlock Grid.Column="0"
+                   Grid.Row="4"
+                   Text="Guess Method:"
+                   FontSize="20"
+                   Foreground="white"
+                   Margin="50,10,20,10"/>
+        <ComboBox Grid.Column="1"
                   Grid.Row="4"
+                  MaxWidth="400"
+                  HorizontalAlignment="Left"
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  FontSize="15"
+                  Margin="0,10,0,10"
+                  ItemsSource="{Binding GuessMethods}"
+                  SelectedItem="{Binding SelectedGuessMethod}" />
+
+        <CheckBox Grid.Column="1"
+                  Grid.Row="5"
                   HorizontalAlignment="Center"
                   Margin="10"
                   Content="Save result automatically"
@@ -82,7 +100,7 @@
                   IsChecked="{Binding SaveResultAutomatically, Mode=OneWayToSource, FallbackValue=True}"/>
 
         <Button Grid.Column="0"
-                Grid.Row="5"
+                Grid.Row="6"
                 Grid.ColumnSpan="2"
                 Content="Start playing"
                 FontSize="25"

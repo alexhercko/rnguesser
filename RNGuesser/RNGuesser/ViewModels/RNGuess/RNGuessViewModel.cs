@@ -61,6 +61,11 @@ namespace RNGuesser.ViewModels.RNGuess
             GuessRandomlyCommand = new RelayCommand(GuessRandomly, o => LastAttemptVisibility == Visibility.Visible);
             SetGuessInputCommand = new RelayCommand(SetGuessInput, o => LastAttemptVisibility == Visibility.Visible &&
                                                                         GuessInput >= RNGuess.CurrentLow && GuessInput <= RNGuess.CurrentHigh);
+
+            if (RNGuess.CurrentAttempts == RNGuess.MaxAttempts && RNGuess.CurrentLow != RNGuess.CurrentHigh)
+            {
+                LastAttemptVisibility = Visibility.Visible;
+            }
         }
 
         private void SetGuessResult(object param)

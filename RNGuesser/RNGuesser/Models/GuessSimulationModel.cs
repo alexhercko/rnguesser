@@ -1,4 +1,5 @@
 ﻿using RNGuesser.Models.Enums;
+using RNGuesser.Models.GuessMethods;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace RNGuesser.Models
 {
     public class GuessSimulationModel
     {
-        public Task<ResultStatisticsModel> RunSimulation(int low, int high, int attempts, int amount) => Task.Run(() =>
+        public Task<ResultStatisticsModel> RunSimulation(int low, int high, int attempts, int amount, IGuessMethod guessMethod) => Task.Run(() =>
         {
             RNGameModel RNGame = new RNGameModel(low, high, attempts);
-            RNGuessModel RNGuess = new RNGuessModel(low, high, attempts);
+            RNGuessModel RNGuess = new RNGuessModel(low, high, attempts, guessMethod);
 
             ResultStatisticsModel resultStatistic = new ResultStatisticsModel()
             {
@@ -47,7 +48,7 @@ namespace RNGuesser.Models
             return resultStatistic;
         });
 
-        public async Task<ResultStatisticsModel> RunParallelSimulations(int low, int high, int attempts, int amount, int tasks)
+        public async Task<ResultStatisticsModel> RunParallelSimulations(int low, int high, int attempts, int amount, int tasks, IGuessMethod guessMethod)
         {
             int amountPerTask = amount / tasks;
 
@@ -60,7 +61,7 @@ namespace RNGuesser.Models
                     amountPerTask = amount;
                 }
 
-                Task<ResultStatisticsModel> currentTask = RunSimulation(low, high, attempts, amountPerTask);
+                Task<ResultStatisticsModel> currentTask = RunSimulation(low, high, attempts, amountPerTask, guessMethod);
                 simulationTasks.Add(currentTask);
                 amount -= amountPerTask;
             }
