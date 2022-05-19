@@ -17,11 +17,19 @@ namespace RNGuesser.Models.GuessMethods
             random = new Random();
         }
 
-        public int GetNextGuess(int low, int high)
+        public int GetNextGuess(int low, int high, int remainingAttempts)
         {
             int deviation = (int)((low + high) * deviationRate);
+            BinarySearchGuess binarySearchGuess = new BinarySearchGuess();
 
-            return Math.Clamp((low + high) / 2 + random.Next(-deviation, deviation + 1), low, high);
+            int nextGuess = binarySearchGuess.GetNextGuess(low, high, remainingAttempts);
+
+            int guessable = (int)Math.Pow(2, remainingAttempts) - 1;
+
+            int guessableLow = Math.Min(low + guessable, nextGuess);
+            int guessableHigh = Math.Max(high - guessable, nextGuess);
+
+            return Math.Clamp(nextGuess + random.Next(-deviation, deviation + 1), guessableLow, guessableHigh);
         }
     }
 }

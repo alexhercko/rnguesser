@@ -8,6 +8,6 @@ namespace RNGuesser.Models.GuessMethods
 {
     public interface IGuessMethod
     {
-        public int GetNextGuess(int low, int high);
+        public int GetNextGuess(int low, int high, int remainingAttempts);
     }
 }

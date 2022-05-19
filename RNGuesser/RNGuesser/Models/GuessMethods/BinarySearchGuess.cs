@@ -10,7 +10,7 @@ namespace RNGuesser.Models.GuessMethods
     {
         public BinarySearchGuess() { }
 
-        public int GetNextGuess(int low, int high)
+        public int GetNextGuess(int low, int high, int remainingAttempts)
         {
             return (low + high) / 2;
         }
