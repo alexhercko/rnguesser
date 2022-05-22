@@ -4,5 +4,6 @@ public enum GuessMethod
 {
     BinarySearch,
     BinarySearchRandom,
-    BinarySearchRandomRange
+    BinarySearchRandomRange,
+    Random
 }

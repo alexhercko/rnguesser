@@ -8,10 +8,6 @@ namespace RNGuesser.Models.GuessMethods
 {
     public class BinarySearchRandomRangeGuess : IGuessMethod
     {
-        public BinarySearchRandomRangeGuess()
-        {
-        }
-
         public int GetNextGuess(int low, int high, int remainingAttempts)
         {
             BinarySearchGuess binarySearchGuess = new BinarySearchGuess();

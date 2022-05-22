@@ -25,7 +25,5 @@ namespace RNGuesser.Models
 
         public bool UsedCustomGuess { get; set; }
         public bool UsedRandomGuess { get; set; }
-
-        // TODO: option if human or computer generated
     }
 }

@@ -28,7 +28,6 @@ namespace RNGuesser.ViewModels.ResultStatistics
 
         public ResultStatisticsMenuViewModel(ResultStatisticsContainerViewModel resultStatisticsContainerViewModel)
         {
-            // TODO: consider this naming convention for all view models
             containerViewModel = resultStatisticsContainerViewModel;
             ShowStatisticsCommandAsync = new RelayCommandAsync(ShowStatistics, o => !ShowStatisticsCommandAsync.RunningTasks.Any());
         }

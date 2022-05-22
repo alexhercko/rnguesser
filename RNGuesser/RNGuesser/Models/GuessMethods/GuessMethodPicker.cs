@@ -18,6 +18,8 @@ namespace RNGuesser.Models.GuessMethods
                     return new BinarySearchRandomGuess();
                 case GuessMethod.BinarySearchRandomRange:
                     return new BinarySearchRandomRangeGuess();
+                case GuessMethod.Random:
+                    return new RandomGuess();
                 default:
                     return null;
             }

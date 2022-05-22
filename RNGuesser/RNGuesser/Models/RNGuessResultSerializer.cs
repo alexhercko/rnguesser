@@ -13,7 +13,7 @@ namespace RNGuesser.Models
     {
         private static readonly object _lock = new object();
 
-        private const string path = "./results.txt";
+        private const string path = "./results.json";
 
         public void SaveResult(RNGuessResultModel rnguessResult) => Task.Run(() =>
         {
