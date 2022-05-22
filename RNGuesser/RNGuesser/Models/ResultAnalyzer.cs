@@ -26,13 +26,20 @@ namespace RNGuesser.Models
                     UsedRandomGuess = groupedResult.Key.UsedRandomGuess
                 };
 
+                int attemptTotal = 0;
+                int attemptCount = 0;
+
                 foreach (RNGuessResultModel result in groupedResult)
                 {
                     resultStatistic.TotalGuesses++;
                     resultStatistic.SuccessfulGuesses += result.ResultGuessed ? 1 : 0;
+
+                    attemptTotal += result.FinalAttempts;
+                    attemptCount++;
                 }
 
                 resultStatistic.SuccessRate = (float)resultStatistic.SuccessfulGuesses / resultStatistic.TotalGuesses * 100;
+                resultStatistic.AverageAttempt = (float)attemptTotal / attemptCount;
                 resultStatistics.Add(resultStatistic);
             }
 

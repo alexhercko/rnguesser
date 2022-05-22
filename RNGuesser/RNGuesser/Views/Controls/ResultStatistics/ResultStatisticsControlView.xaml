@@ -38,10 +38,10 @@
                 <DataGridTextColumn Header="Attempts"
                                     Width="auto"
                                     Binding="{Binding Attempts}" />
-                <DataGridCheckBoxColumn Header="Used custom guess"
+                <DataGridCheckBoxColumn Header="Custom guess"
                                         Width="auto"
                                         Binding="{Binding UsedCustomGuess}" />
-                <DataGridCheckBoxColumn Header="Used random guess"
+                <DataGridCheckBoxColumn Header="Random guess"
                                         Width="auto"
                                         Binding="{Binding UsedRandomGuess}" />
                 <DataGridTextColumn Header="Total guesses"
@@ -51,8 +51,11 @@
                                     Width="auto"
                                     Binding="{Binding SuccessfulGuesses}" />
                 <DataGridTextColumn Header="Success rate"
-                                    Width="*"
+                                    Width="auto"
                                     Binding="{Binding SuccessRate, StringFormat={}{0:0.00}%}"/>
+                <DataGridTextColumn Header="Average attempt"
+                                    Width="auto"
+                                    Binding="{Binding AverageAttempt, StringFormat={}{0:0.00}}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
